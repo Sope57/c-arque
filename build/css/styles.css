@@ -1,0 +1,820 @@
+/********** GENERAL **********/
+html {
+  font-family: "Lato", sans-serif;
+}
+
+html * *:before,
+html * *:after {
+  box-sizing: border-box;
+  -webkit-transition: 0.5s;
+  -moz-transition: 0.5s;
+  -ms-transition: 0.5s;
+  -o-transition: 0.5s;
+  transition: 0.5s;
+}
+
+body {
+  font-family: "Lato", sans-serif;
+}
+
+body .page {
+  margin-top: 70px;
+  position: absolute;
+  overflow: hidden;
+  z-index: 1;
+}
+
+body .page.active {
+  z-index: 5;
+}
+
+body a {
+  letter-spacing: 0.3em;
+}
+
+*:after {
+  z-index: -1;
+}
+
+.bgnrccov, .tile .background, #proyectos #projectSlider .carousel-indicators li .projectThumbnail, #proyectos #projectSlider .carousel-inner .item .projectBackground, #proyectos #projectEntrance, #proyectos #projectView #projectImage, #proyectos #projectView #projectImages .image {
+  background-repeat: no-repeat;
+  background-position: center;
+  -webkit-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.fancyButton {
+  position: relative;
+  display: block;
+  padding: 10px 0;
+  letter-spacing: 0.3em;
+  font-size: 20px;
+  text-transform: uppercase;
+  text-align: center;
+  border: 5px solid #171717;
+  background: transparent;
+  overflow: hidden;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+}
+
+.fancyButton p {
+  position: relative;
+  margin: 10px;
+  color: #171717;
+  z-index: 1;
+  -webkit-transition: color 0.4s;
+  -moz-transition: color 0.4s;
+  -ms-transition: color 0.4s;
+  -o-transition: color 0.4s;
+  transition: color 0.4s;
+}
+
+.fancyButton span {
+  position: absolute;
+  display: block;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: #171717;
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  -webkit-transition: width 0.6s, height 0.6s;
+  -moz-transition: width 0.6s, height 0.6s;
+  -ms-transition: width 0.6s, height 0.6s;
+  -o-transition: width 0.6s, height 0.6s;
+  transition: width 0.6s, height 0.6s;
+}
+
+.fancyButton:hover {
+  text-decoration: none;
+}
+
+.fancyButton:hover p {
+  color: #FFF;
+}
+
+.fancyButton:hover span {
+  width: 1000px;
+  height: 1000px;
+}
+
+.fancyButton:focus {
+  outline: none;
+  text-decoration: none;
+}
+
+.tile {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 25vh;
+  border: 4px solid #FFF;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.tile:hover .background {
+  -webkit-transform: translateY(-15%);
+  -moz-transform: translateY(-15%);
+  -ms-transform: translateY(-15%);
+  -o-transform: translateY(-15%);
+  transform: translateY(-15%);
+}
+
+.tile .hoverSlider, .tile .inner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.tile .background {
+  display: block;
+  width: 100%;
+  height: 100%;
+  -webkit-transform: translateY(0px);
+  -moz-transform: translateY(0px);
+  -ms-transform: translateY(0px);
+  -o-transform: translateY(0px);
+  transform: translateY(0px);
+  -webkit-transition: transform 0.4s cubic-bezier(0.165, 0.85, 0.44, 1);
+  -moz-transition: transform 0.4s cubic-bezier(0.165, 0.85, 0.44, 1);
+  -ms-transition: transform 0.4s cubic-bezier(0.165, 0.85, 0.44, 1);
+  -o-transition: transform 0.4s cubic-bezier(0.165, 0.85, 0.44, 1);
+  transition: transform 0.4s cubic-bezier(0.165, 0.85, 0.44, 1);
+}
+
+.tile .inner {
+  display: block;
+  text-decoration: none;
+  color: #171717;
+}
+
+.tile .details {
+  display: block;
+  position: relative;
+  width: 100%;
+  top: 100%;
+  padding: 2rem;
+  background-color: #FFF;
+  color: #171717;
+  -webkit-transform: translateY(0px);
+  -moz-transform: translateY(0px);
+  -ms-transform: translateY(0px);
+  -o-transform: translateY(0px);
+  transform: translateY(0px);
+  -webkit-transition: transform 0.4s cubic-bezier(0.165, 0.85, 0.44, 1);
+  -moz-transition: transform 0.4s cubic-bezier(0.165, 0.85, 0.44, 1);
+  -ms-transition: transform 0.4s cubic-bezier(0.165, 0.85, 0.44, 1);
+  -o-transition: transform 0.4s cubic-bezier(0.165, 0.85, 0.44, 1);
+  transition: transform 0.4s cubic-bezier(0.165, 0.85, 0.44, 1);
+}
+
+.tile .details h1 {
+  font-size: 20px;
+  margin: 0;
+}
+
+.tile .details h2 {
+  font-size: 16px;
+  margin: 0;
+  margin-bottom: 10px;
+}
+
+/********** PRELOAD **********/
+.no-js #loader {
+  display: none;
+}
+
+.js #loader {
+  display: block;
+  position: absolute;
+  left: 100px;
+  top: 0;
+}
+
+.se-pre-con {
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+}
+
+.se-pre-con img {
+  display: none;
+  width: 200px;
+  height: 200px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+
+.se-pre-con .bar {
+  position: absolute;
+  background-color: #171717;
+}
+
+.se-pre-con .top {
+  width: 23px;
+  height: 500px;
+  top: -500px;
+}
+
+.se-pre-con .right {
+  width: 500px;
+  height: 23px;
+  right: -500px;
+}
+
+.se-pre-con .bottom {
+  width: 23px;
+  height: 500px;
+  bottom: -500px;
+}
+
+.se-pre-con .left {
+  width: 500px;
+  height: 23px;
+  left: -500px;
+}
+
+.app {
+  display: none;
+}
+
+/********** NAVBAR **********/
+.navbar {
+  border: none;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+  background-color: #FFF;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  -webkit-transition: background-color 0.75s, box-shadow 0.75s;
+  -moz-transition: background-color 0.75s, box-shadow 0.75s;
+  -ms-transition: background-color 0.75s, box-shadow 0.75s;
+  -o-transition: background-color 0.75s, box-shadow 0.75s;
+  transition: background-color 0.75s, box-shadow 0.75s;
+}
+
+.navbar .navbar-nav li a {
+  color: #171717;
+  padding-bottom: 5px;
+  margin: 0 12px 10px;
+  font-weight: 500;
+  text-transform: uppercase;
+  -webkit-transition: border-bottom 0.2s, color 0.75s;
+  -moz-transition: border-bottom 0.2s, color 0.75s;
+  -ms-transition: border-bottom 0.2s, color 0.75s;
+  -o-transition: border-bottom 0.2s, color 0.75s;
+  transition: border-bottom 0.2s, color 0.75s;
+}
+
+.navbar .navbar-nav li a:hover, .navbar .navbar-nav li.active a, .navbar .navbar-nav li.active a:hover {
+  color: #171717;
+  background-color: inherit;
+  border-bottom: 4px solid #171717;
+  margin-bottom: 6px;
+}
+
+.navbar .navbar-nav li:last-of-type a {
+  margin-right: 0;
+}
+
+.navbar .navbar-nav li.active a {
+  text-decoration: none;
+}
+
+.navbar .navbar-nav li.active a, .navbar .navbar-nav li.active a:hover {
+  text-decoration: none;
+}
+
+.navbar .navbar-brand {
+  margin-left: 0px !important;
+  padding: 5px 0;
+}
+
+.navbar .navbar-brand img {
+  display: inline;
+  width: 40px;
+  height: 40px;
+  -webkit-filter: brightness(0%);
+  filter: brightness(0%);
+  -webkit-transition: filter 0.75s;
+  -moz-transition: filter 0.75s;
+  -ms-transition: filter 0.75s;
+  -o-transition: filter 0.75s;
+  transition: filter 0.75s;
+}
+
+.navbar .navbar-brand img + img {
+  width: 200px;
+  height: 30px;
+}
+
+.navbar.inPage {
+  background-color: rgba(0, 0, 0, 0.5);
+  -webkit-box-shadow: 0 0 25px #171717;
+  box-shadow: 0 0 25px #171717;
+}
+
+.navbar.inPage .navbar-nav li a {
+  color: #FFF;
+}
+
+.navbar.inPage .navbar-nav li a:hover, .navbar.inPage .navbar-nav li.active a {
+  border-bottom: 4px solid #FFF;
+}
+
+.navbar.inPage .navbar-nav li.active a, .navbar.inPage .navbar-nav li.active a:hover {
+  color: #FFF;
+}
+
+.navbar.inPage .navbar-brand img {
+  -webkit-filter: brightness(10000%);
+  filter: brightness(10000%);
+}
+
+.navbar.inPage .navbar-toggle {
+  border: 4px solid #FFF;
+}
+
+.navbar.inPage .navbar-toggle .icon-bar {
+  background-color: #FFF;
+}
+
+.navbar .navbar-toggle {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #171717;
+  padding: 0;
+  margin: 5px 15px 5px 0;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+  -webkit-transition: border 0.75s;
+  -moz-transition: border 0.75s;
+  -ms-transition: border 0.75s;
+  -o-transition: border 0.75s;
+  transition: border 0.75s;
+}
+
+.navbar .navbar-toggle .icon-bar {
+  position: absolute;
+  background-color: #171717;
+  height: 3px;
+  margin: 0;
+  top: 48%;
+  left: 16%;
+  -webkit-transform: rotateZ(135deg);
+  -moz-transform: rotateZ(135deg);
+  -ms-transform: rotateZ(135deg);
+  -o-transform: rotateZ(135deg);
+  transform: rotateZ(135deg);
+  -webkit-transition: transform 0.5s cubic-bezier(0.1, 0.3, 0, 1), background-color 0.75s;
+  -moz-transition: transform 0.5s cubic-bezier(0.1, 0.3, 0, 1), background-color 0.75s;
+  -ms-transition: transform 0.5s cubic-bezier(0.1, 0.3, 0, 1), background-color 0.75s;
+  -o-transition: transform 0.5s cubic-bezier(0.1, 0.3, 0, 1), background-color 0.75s;
+  transition: transform 0.5s cubic-bezier(0.1, 0.3, 0, 1), background-color 0.75s;
+}
+
+.navbar .navbar-toggle .icon-bar + .icon-bar {
+  -webkit-transform: rotateZ(225deg);
+  -moz-transform: rotateZ(225deg);
+  -ms-transform: rotateZ(225deg);
+  -o-transform: rotateZ(225deg);
+  transform: rotateZ(225deg);
+}
+
+.navbar .navbar-toggle.collapsed .icon-bar {
+  -webkit-transform: rotateZ(0deg);
+  -moz-transform: rotateZ(0deg);
+  -ms-transform: rotateZ(0deg);
+  -o-transform: rotateZ(0deg);
+  transform: rotateZ(0deg);
+}
+
+.navbar .navbar-toggle.collapsed .icon-bar + .icon-bar {
+  -webkit-transform: rotateZ(90deg);
+  -moz-transform: rotateZ(90deg);
+  -ms-transform: rotateZ(90deg);
+  -o-transform: rotateZ(90deg);
+  transform: rotateZ(90deg);
+}
+
+/********** MAIN **********/
+#main p {
+  font-size: 20px;
+  margin: 0;
+  margin-bottom: 20px;
+}
+
+#main .fancyButton {
+  margin-bottom: 50px;
+  padding: 8% 0 0;
+}
+
+#main #introImage {
+  width: 100%;
+  height: 80vh;
+  -webkit-transition: background-position 0.5s cubic-bezier(0.1, 0.3, 0, 1);
+  -moz-transition: background-position 0.5s cubic-bezier(0.1, 0.3, 0, 1);
+  -ms-transition: background-position 0.5s cubic-bezier(0.1, 0.3, 0, 1);
+  -o-transition: background-position 0.5s cubic-bezier(0.1, 0.3, 0, 1);
+  transition: background-position 0.5s cubic-bezier(0.1, 0.3, 0, 1);
+  background-image: url("../images/introImage.jpg");
+  background-position: 0% 0%;
+  background-repeat: no-repeat;
+  -webkit-background-size: cover;
+  -webkit-background-size--o-background-size: cover;
+  -webkit-background-size-background-size: cover;
+}
+
+#main #introImage:hover {
+  cursor: url("../images/pointer-down.png"), auto;
+}
+
+#main #introText {
+  margin: 50px 0;
+}
+
+/********** PORTFOLIO **********/
+#proyectos {
+  display: none;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  background-color: #FFF;
+  overflow: hidden;
+}
+
+#proyectos #projectSlider {
+  height: 100%;
+}
+
+#proyectos #projectSlider .carousel-control {
+  width: 20vw;
+  margin-top: 50px;
+  opacity: 1;
+}
+
+#proyectos #projectSlider .carousel-control.left {
+  margin-left: 20vw;
+  cursor: url("../images/pointer-left.png"), auto;
+  background: -webkit-linear-gradient(to right, black 0%, transparent 100%);
+  background: -moz-linear-gradient(to right, black 0%, transparent 100%);
+  background: -ms-linear-gradient(to right, black 0%, transparent 100%);
+  background: -o-linear-gradient(to right, black 0%, transparent 100%);
+  background: linear-gradient(to right, black 0%, transparent 100%);
+}
+
+#proyectos #projectSlider .carousel-control.right {
+  cursor: url("../images/pointer-right.png"), auto;
+  background: -webkit-linear-gradient(to left, black 0%, transparent 100%);
+  background: -moz-linear-gradient(to left, black 0%, transparent 100%);
+  background: -ms-linear-gradient(to left, black 0%, transparent 100%);
+  background: -o-linear-gradient(to left, black 0%, transparent 100%);
+  background: linear-gradient(to left, black 0%, transparent 100%);
+}
+
+#proyectos #projectSlider .carousel-indicators {
+  left: 0;
+  top: 50px;
+  width: 20vw;
+  height: calc(100% - 50px);
+  margin: 0;
+}
+
+#proyectos #projectSlider .carousel-indicators li {
+  position: relative;
+  display: block;
+  float: left;
+  width: 100%;
+  height: 14.2857142857%;
+  margin: 0;
+  background-color: rgba(0, 0, 0, 0.75);
+  border: 1px solid #777;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+}
+
+#proyectos #projectSlider .carousel-indicators li .percentage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 10px;
+  height: 0;
+  background-color: #FFF;
+}
+
+#proyectos #projectSlider .carousel-indicators li .projectThumbnail {
+  position: absolute;
+  top: 10%;
+  left: calc(10% + 5px);
+  width: 80%;
+  height: 80%;
+  -webkit-transition: height 0.5s;
+  -moz-transition: height 0.5s;
+  -ms-transition: height 0.5s;
+  -o-transition: height 0.5s;
+  transition: height 0.5s;
+}
+
+#proyectos #projectSlider .carousel-indicators li .title {
+  position: absolute;
+  bottom: 7%;
+  left: calc(10% - 15px);
+  width: 80%;
+  height: 0;
+  color: #FFF;
+  font-size: 14px;
+  text-indent: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  overflow: hidden;
+  opacity: 0;
+  -webkit-transition: left 0.5s, height 0.5s, opacity 0.5s;
+  -moz-transition: left 0.5s, height 0.5s, opacity 0.5s;
+  -ms-transition: left 0.5s, height 0.5s, opacity 0.5s;
+  -o-transition: left 0.5s, height 0.5s, opacity 0.5s;
+  transition: left 0.5s, height 0.5s, opacity 0.5s;
+}
+
+#proyectos #projectSlider .carousel-indicators li.active .projectThumbnail {
+  height: 60%;
+}
+
+#proyectos #projectSlider .carousel-indicators li.active .title {
+  left: calc(10% + 5px);
+  height: 20%;
+  opacity: 1;
+}
+
+#proyectos #projectSlider .carousel-inner {
+  height: 100%;
+}
+
+#proyectos #projectSlider .carousel-inner .item, #proyectos #projectSlider .carousel-inner .item .projectBackground, #proyectos #projectSlider .carousel-inner .item .projectLink {
+  width: 100%;
+  height: 100%;
+}
+
+#proyectos #projectSlider .carousel-inner .item .projectBackground .cursor {
+  display: none;
+}
+
+#proyectos #projectSlider .carousel-inner .item .projectBackground .cursor div {
+  margin-left: 55px;
+  color: #FFF;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  text-shadow: 0 0 10px #171717;
+}
+
+#proyectos #projectSlider .carousel-inner .item .projectBackground .cursor div + div {
+  font-size: 14px;
+  font-weight: 400;
+}
+
+#proyectos #projectSlider .carousel-inner .item .projectLink {
+  position: absolute;
+  top: 50px;
+  left: 0;
+  cursor: url("../images/pointer-up.png"), auto;
+}
+
+#proyectos #projectEntrance {
+  position: absolute;
+  display: none;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 15;
+}
+
+#proyectos #projectEntrance .bar {
+  position: absolute;
+  background-color: #FFF;
+}
+
+#proyectos #projectEntrance .top {
+  width: 100%;
+  height: 10%;
+  top: 0;
+  left: -100%;
+}
+
+#proyectos #projectEntrance .right {
+  width: 10%;
+  height: 100%;
+  right: 0;
+  top: -100%;
+}
+
+#proyectos #projectEntrance .bottom {
+  width: 100%;
+  height: 10%;
+  bottom: 0;
+  right: -100%;
+}
+
+#proyectos #projectEntrance .left {
+  width: 10%;
+  height: 100%;
+  left: 0;
+  bottom: -100%;
+}
+
+#proyectos #projectView {
+  display: none;
+  margin-top: 100px;
+  border: none;
+  opacity: 0;
+}
+
+#proyectos #projectView #projectName {
+  margin: 0;
+  margin-bottom: 15px;
+  font-size: 50px;
+  text-transform: uppercase;
+}
+
+#proyectos #projectView #projectImage {
+  height: 50vh;
+  border: 5px solid white;
+}
+
+#proyectos #projectView #projectImages {
+  height: 50vh;
+}
+
+#proyectos #projectView #projectImages .image {
+  height: 33.3333%;
+  border: 5px solid white;
+  cursor: pointer;
+}
+
+#proyectos #projectView #projectImages .image .look {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 30%;
+  height: 30%;
+  color: #FFF;
+  font-size: 24px;
+  text-align: center;
+  margin: auto;
+}
+
+#proyectos #projectView #projectDescription {
+  margin: 0;
+  margin-top: 15px;
+  font-size: 16px;
+}
+
+#proyectos #projectView #moreProjects {
+  margin-top: 25px;
+  width: 100%;
+  height: 100%;
+}
+
+/********** ARTE **********/
+#arte {
+  display: none;
+  width: 100%;
+  margin-top: 50px;
+  padding-top: 50px;
+  background-color: #FFF;
+}
+
+#arte .artContainer {
+  position: relative;
+  margin: 50px 10px;
+  -webkit-transform: scale(1);
+  -moz-transform: scale(1);
+  -ms-transform: scale(1);
+  -o-transform: scale(1);
+  transform: scale(1);
+  -webkit-transition: transform 0.75s cubic-bezier(0.1, 0.3, 0, 1);
+  -moz-transition: transform 0.75s cubic-bezier(0.1, 0.3, 0, 1);
+  -ms-transition: transform 0.75s cubic-bezier(0.1, 0.3, 0, 1);
+  -o-transition: transform 0.75s cubic-bezier(0.1, 0.3, 0, 1);
+  transition: transform 0.75s cubic-bezier(0.1, 0.3, 0, 1);
+}
+
+#arte .artContainer:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  opacity: 0.4;
+  background-color: #171717;
+  z-index: 1;
+  -webkit-transition: opacity 0.75s;
+  -moz-transition: opacity 0.75s;
+  -ms-transition: opacity 0.75s;
+  -o-transition: opacity 0.75s;
+  transition: opacity 0.75s;
+}
+
+#arte .artContainer img {
+  width: 100%;
+  height: auto;
+}
+
+#arte .artContainer p {
+  position: absolute;
+  bottom: 0;
+  right: 3%;
+  color: #FFF;
+  font-size: 10px;
+  text-shadow: 1px 1px 2px #171717;
+  opacity: 0;
+  -webkit-transition: opacity 0.25s;
+  -moz-transition: opacity 0.25s;
+  -ms-transition: opacity 0.25s;
+  -o-transition: opacity 0.25s;
+  transition: opacity 0.25s;
+}
+
+#arte .artContainer:hover {
+  z-index: 10;
+  -webkit-transform: scale(1.4);
+  -moz-transform: scale(1.4);
+  -ms-transform: scale(1.4);
+  -o-transform: scale(1.4);
+  transform: scale(1.4);
+}
+
+#arte .artContainer:hover:after {
+  opacity: 0;
+}
+
+#arte .artContainer:hover p {
+  opacity: 1;
+  z-index: 11;
+  -webkit-transition: opacity 0.5s;
+  -moz-transition: opacity 0.5s;
+  -ms-transition: opacity 0.5s;
+  -o-transition: opacity 0.5s;
+  transition: opacity 0.5s;
+}
+
+#arte .tile {
+  height: 30vw;
+  margin: 15px 0;
+}
+
+#arte .tile .background {
+  background-position: center;
+}
+
+/********** RESPONSIVE **********/
+/********** NAVBAR **********/
+@media (max-width: 768px) {
+  .navbar .navbar-header {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 414px) {
+  .navbar .navbar-header img + img {
+    width: 50vw;
+  }
+}
+
+/********** PROJECT **********/
+@media (max-width: 992px) {
+  #proyectos #projectView #projectImages {
+    height: 10vh;
+  }
+  #proyectos #projectView #projectImages .image {
+    height: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  #proyectos #projectView #projectImages {
+    height: 25vh;
+  }
+  #proyectos #projectView #projectImages .image {
+    height: 50%;
+  }
+}

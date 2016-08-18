@@ -1,0 +1,27 @@
+{
+  "name": "c-arque",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jorge Carlos Quevedo",
+  "license": "ISC",
+  "dependencies": {
+    "grunt": "^1.0.1"
+  },
+  "repository" : { 
+    "type" : "git",
+    "url" : "https://github.com/Sope57/c-arque.git"
+  },
+  "devDependencies": {
+    "bootstrap": "^3.3.7",
+    "bootstrap-sass": "^3.3.7",
+    "font-awesome": "^4.6.3",
+    "grunt-contrib-uglify": "^2.0.0",
+    "grunt-contrib-watch": "^1.0.0",
+    "grunt-sass": "^1.2.0",
+    "jquery": "^3.1.0"
+  }
+}
