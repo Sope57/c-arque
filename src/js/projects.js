@@ -2,6 +2,7 @@ $(function() {
 	var $projects = $("#proyectos");
 	var $slides = $(".carousel-inner .item");
 	var $carousel = $("#projectSlider");
+	var $slideInterval = 10000;
 	var $projectEntrance = $("#projectEntrance");
 	var $topBar = $projectEntrance.find(".top");
 	var $rightBar = $projectEntrance.find(".right");
@@ -41,20 +42,20 @@ $(function() {
 	};
 
 	$carousel.carousel({
-		interval: 10000,
+		interval: $slideInterval,
 		pause: null
 	});
 
-	$carousel.find(".carousel-indicators .active .percentage").animate({'height': '100%'}, 10000, "linear");
+	$carousel.find(".carousel-indicators .active .percentage").animate({'height': '100%'}, $slideInterval, "linear");
 
 	$carousel.bind('slide.bs.carousel', function (e) {
 		var $activeItem = $("#" + $(e.relatedTarget).attr("data-sliderId"));
-		$activeItem.find(".percentage").css('height', '0px').animate({'height': '100%'}, 10000, "linear");
+		$activeItem.find(".percentage").css('height', '0px').animate({'height': '100%'}, $slideInterval, "linear");
 		$activeItem.prevAll().find(".percentage").stop().css('height', '100%');
 		$activeItem.nextAll().find(".percentage").stop().css('height', '0%');
 		var $windowWidth = $(window).width();
 		$(e.relatedTarget).prev().find(".cursor").hide();
-		if(ElementCursor.currentMousePos.x > ($windowWidth/4+30) && ElementCursor.currentMousePos.x < ($windowWidth-$windowWidth/4-30) && ElementCursor.currentMousePos.y > 60) {
+		if(ElementCursor.currentMousePos.x > (($windowWidth/5)*2+20) && ElementCursor.currentMousePos.x < ($windowWidth-$windowWidth/5-20) && ElementCursor.currentMousePos.y > 60) {
 			$(e.relatedTarget).find(".cursor").delay(750).slideDown(750).css({
             	'position': 'fixed',
             	'user-select': 'none',
@@ -112,9 +113,19 @@ $(function() {
 		$projectView.find("#projectImage").css('background-image', "url(build/images/proyecto1.jpg)");
 	});
 
+	$("#projectImages").find(".image").on('click', function() {
+		var $projectImage = $(this).attr("data-projectImage");
+		$projectView.find("#projectImage").css('background-image', "url(build/images/" + $projectImage + ")");
+	});
+
 	$backButton.on('click', function() {
-		$projectEntrance.show();
-		$projectView.delay(750).animate({ 'opacity' : '0' }, 500, function() {
+		$projectEntrance.css({
+			'width' : $projectView.find("#projectImage").outerWidth() + 'px',
+			'top' : $projectView.find("#projectImage").offset().top + 'px',
+			'left' : $projectView.find("#projectImage").offset().left + 'px'
+		}).show();
+		var $delay = ( $("#projectName").visible() ? 0 : 750);
+		$projectView.delay($delay).animate({ 'opacity' : '0' }, 500, function() {
 			$projects.css('height', '100vh');
 			$topBar.animate({ 'height' : '10%' }, 500);
 			$rightBar.animate({ 'width' : '10%' }, 500);

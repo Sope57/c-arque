@@ -1,0 +1,24 @@
+Animación de de entrada:
+ - Abstracto lineas etc, branding
+
+Escalar, historia, las images tienen sentido, progresión.
+
+introducción, que se pretende, imagenes, texto
+
+portafolio, interacción, imagen - fondo, hover con imagen. 7 proyectos. Poco texto, 3 - 4 líneas. recorrido.
+
+Forma de contacto e información. Fotografía
+
+sección de arte, puras imágenes, mostrar lado artístico, display, footer.
+
+
+
+
+
+
+
+
+
+
+
+

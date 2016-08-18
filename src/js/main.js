@@ -73,8 +73,10 @@ $(function() {
     });
 
 	$(".tile").hover(function(){
-		var moveUp = $(this).find(".details").outerHeight(true);
-		$(this).find(".details").css('transform', 'translateY(-' + moveUp + 'px)');
+		if ($window.width() > 768) {
+			var moveUp = $(this).find(".details").outerHeight(true);
+			$(this).find(".details").css('transform', 'translateY(-' + moveUp + 'px)');
+		}
 	}, function() {
 		$(this).find(".details").css('transform', 'translateY(0px)');
 	});

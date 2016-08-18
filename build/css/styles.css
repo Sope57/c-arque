@@ -112,7 +112,8 @@ body a {
   position: relative;
   display: block;
   width: 100%;
-  height: 25vh;
+  height: 40vw;
+  max-height: 360px;
   border: 4px solid #FFF;
   cursor: pointer;
   overflow: hidden;
@@ -533,7 +534,7 @@ body a {
 #proyectos #projectSlider .carousel-indicators li .title {
   position: absolute;
   bottom: 7%;
-  left: calc(10% - 15px);
+  left: calc(10% - 30px);
   width: 80%;
   height: 0;
   color: #FFF;
@@ -564,20 +565,21 @@ body a {
   height: 100%;
 }
 
-#proyectos #projectSlider .carousel-inner .item, #proyectos #projectSlider .carousel-inner .item .projectBackground, #proyectos #projectSlider .carousel-inner .item .projectLink {
+#proyectos #projectSlider .carousel-inner .item, #proyectos #projectSlider .carousel-inner .item .projectBackground {
   width: 100%;
   height: 100%;
 }
 
 #proyectos #projectSlider .carousel-inner .item .projectBackground .cursor {
   display: none;
+  margin-top: 6px;
 }
 
 #proyectos #projectSlider .carousel-inner .item .projectBackground .cursor div {
   margin-left: 55px;
   color: #FFF;
-  font-size: 20px;
-  font-weight: 700;
+  font-size: 24px;
+  font-weight: 900;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   text-shadow: 0 0 10px #171717;
@@ -591,8 +593,31 @@ body a {
 #proyectos #projectSlider .carousel-inner .item .projectLink {
   position: absolute;
   top: 50px;
-  left: 0;
+  left: 40vw;
+  width: 40vw;
+  height: 100%;
   cursor: url("../images/pointer-up.png"), auto;
+}
+
+#proyectos #projectSlider .carousel-inner .item .projectLink:hover {
+  text-decoration: none;
+}
+
+#proyectos #projectSlider .carousel-inner .item .fancyButton {
+  position: relative;
+  display: none;
+  top: 40%;
+  right: 0;
+  left: 0;
+  width: 70%;
+  margin: auto;
+  border: 5px solid white;
+  background: rgba(0, 0, 0, 0.4);
+}
+
+#proyectos #projectSlider .carousel-inner .item .fancyButton p {
+  color: #FFF;
+  font-size: 2vw;
 }
 
 #proyectos #projectEntrance {
@@ -698,7 +723,7 @@ body a {
   display: none;
   width: 100%;
   margin-top: 50px;
-  padding-top: 50px;
+  padding-top: 20px;
   background-color: #FFF;
 }
 
@@ -778,15 +803,28 @@ body a {
 }
 
 #arte .tile {
-  height: 30vw;
-  margin: 15px 0;
-}
-
-#arte .tile .background {
-  background-position: center;
+  margin: 0 0 30px;
 }
 
 /********** RESPONSIVE **********/
+/********** GENERAL **********/
+@media (max-width: 768px) {
+  .tile {
+    height: auto;
+    max-height: none;
+  }
+  .tile .hoverSlider, .tile .inner {
+    position: relative;
+  }
+  .tile:hover .background {
+    -webkit-transform: translateY(0);
+    -moz-transform: translateY(0);
+    -ms-transform: translateY(0);
+    -o-transform: translateY(0);
+    transform: translateY(0);
+  }
+}
+
 /********** NAVBAR **********/
 @media (max-width: 768px) {
   .navbar .navbar-header {
@@ -801,20 +839,51 @@ body a {
 }
 
 /********** PROJECT **********/
-@media (max-width: 992px) {
-  #proyectos #projectView #projectImages {
-    height: 10vh;
+@media (max-width: 1024px) {
+  #proyectos #projectSlider .fancyButton {
+    display: block !important;
   }
-  #proyectos #projectView #projectImages .image {
-    height: 100%;
+  #proyectos #projectSlider .cursor {
+    display: none !important;
+  }
+  #proyectos #projectSlider .title {
+    font-size: 12px !important;
+  }
+}
+
+@media (max-width: 992px) {
+  #proyectos #projectImages {
+    height: 100px !important;
+  }
+  #proyectos #projectImages .image {
+    height: 100% !important;
   }
 }
 
 @media (max-width: 768px) {
-  #proyectos #projectView #projectImages {
-    height: 25vh;
+  #proyectos #projectSlider .fancyButton {
+    width: 100% !important;
   }
-  #proyectos #projectView #projectImages .image {
-    height: 50%;
+  #proyectos #projectSlider .fancyButton p {
+    height: 3vw;
+  }
+  #proyectos #projectSlider .title {
+    font-size: 6px !important;
+  }
+  #proyectos #projectImages {
+    height: 200px !important;
+  }
+  #proyectos #projectImages .image {
+    height: 50% !important;
+  }
+}
+
+/********** ART **********/
+@media (max-width: 768px) {
+  #arte {
+    padding-top: 10px;
+  }
+  #arte .tile .background {
+    height: 300px;
   }
 }

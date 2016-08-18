@@ -1,5 +1,16 @@
 /********** RESPONSIVE **********/
 
+/********** GENERAL **********/
+@media(max-width: 768px)
+	.tile
+		height: auto
+		max-height: none
+		.hoverSlider
+			position: relative
+		&:hover
+			.background
+				+transform(translateY(0))
+
 /********** NAVBAR **********/
 @media(max-width: 768px)
 	.navbar
@@ -13,18 +24,41 @@
 				width: 50vw 
 	
 /********** PROJECT **********/
+@media(max-width: 1024px)
+	#proyectos
+		#projectSlider
+			.fancyButton
+				display: block!important
+			.cursor
+				display: none!important
+			.title
+				font-size: 12px!important  
+					
 @media(max-width: 992px)
 	#proyectos
-		#projectView
-			#projectImages
-				height: 10vh
-				.image
-					height: 100%
+		#projectImages
+			height: 100px!important
+			.image
+				height: 100%!important
 
 @media(max-width: 768px)
 	#proyectos
-		#projectView
-			#projectImages
-				height: 25vh
-				.image
-					height: 50%
+		#projectSlider
+			.fancyButton
+				width: 100%!important
+				p
+					height: 3vw
+			.title
+				font-size: 6px!important  
+		#projectImages
+			height: 200px!important
+			.image
+				height: 50%!important
+					
+/********** ART **********/
+@media(max-width: 768px)
+	#arte
+		padding-top: 10px
+		.tile
+			.background
+				height: 300px

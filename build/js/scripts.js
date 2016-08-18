@@ -89,8 +89,10 @@ $(function() {
         });
     });
     $(".tile").hover(function() {
-        var moveUp = $(this).find(".details").outerHeight(true);
-        $(this).find(".details").css("transform", "translateY(-" + moveUp + "px)");
+        if ($window.width() > 768) {
+            var moveUp = $(this).find(".details").outerHeight(true);
+            $(this).find(".details").css("transform", "translateY(-" + moveUp + "px)");
+        }
     }, function() {
         $(this).find(".details").css("transform", "translateY(0px)");
     });
@@ -179,6 +181,7 @@ $(function() {
     var $projects = $("#proyectos");
     var $slides = $(".carousel-inner .item");
     var $carousel = $("#projectSlider");
+    var $slideInterval = 1e4;
     var $projectEntrance = $("#projectEntrance");
     var $topBar = $projectEntrance.find(".top");
     var $rightBar = $projectEntrance.find(".right");
@@ -219,22 +222,22 @@ $(function() {
         }
     };
     $carousel.carousel({
-        interval: 1e4,
+        interval: $slideInterval,
         pause: null
     });
     $carousel.find(".carousel-indicators .active .percentage").animate({
         height: "100%"
-    }, 1e4, "linear");
+    }, $slideInterval, "linear");
     $carousel.bind("slide.bs.carousel", function(e) {
         var $activeItem = $("#" + $(e.relatedTarget).attr("data-sliderId"));
         $activeItem.find(".percentage").css("height", "0px").animate({
             height: "100%"
-        }, 1e4, "linear");
+        }, $slideInterval, "linear");
         $activeItem.prevAll().find(".percentage").stop().css("height", "100%");
         $activeItem.nextAll().find(".percentage").stop().css("height", "0%");
         var $windowWidth = $(window).width();
         $(e.relatedTarget).prev().find(".cursor").hide();
-        if (ElementCursor.currentMousePos.x > $windowWidth / 4 + 30 && ElementCursor.currentMousePos.x < $windowWidth - $windowWidth / 4 - 30 && ElementCursor.currentMousePos.y > 60) {
+        if (ElementCursor.currentMousePos.x > $windowWidth / 5 * 2 + 20 && ElementCursor.currentMousePos.x < $windowWidth - $windowWidth / 5 - 20 && ElementCursor.currentMousePos.y > 60) {
             $(e.relatedTarget).find(".cursor").delay(750).slideDown(750).css({
                 position: "fixed",
                 "user-select": "none",
@@ -306,9 +309,18 @@ $(function() {
     }, function() {
         $projectView.find("#projectImage").css("background-image", "url(build/images/proyecto1.jpg)");
     });
+    $("#projectImages").find(".image").on("click", function() {
+        var $projectImage = $(this).attr("data-projectImage");
+        $projectView.find("#projectImage").css("background-image", "url(build/images/" + $projectImage + ")");
+    });
     $backButton.on("click", function() {
-        $projectEntrance.show();
-        $projectView.delay(750).animate({
+        $projectEntrance.css({
+            width: $projectView.find("#projectImage").outerWidth() + "px",
+            top: $projectView.find("#projectImage").offset().top + "px",
+            left: $projectView.find("#projectImage").offset().left + "px"
+        }).show();
+        var $delay = $("#projectName").visible() ? 0 : 750;
+        $projectView.delay($delay).animate({
             opacity: "0"
         }, 500, function() {
             $projects.css("height", "100vh");

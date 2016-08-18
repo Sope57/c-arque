@@ -53,7 +53,7 @@
 				.title
 					position: absolute
 					bottom: 7%
-					left: calc(10% - 15px)
+					left: calc(10% - 30px)
 					width: 80%
 					height: 0
 					color: #FFF
@@ -80,12 +80,13 @@
 				 @extend .item
 				 @extend .bgnrccov
 					.cursor
-						display: none 
+						display: none
+						margin-top: 6px
 						div
 							margin-left: 55px
 							color: #FFF
-							font-size: 20px
-							font-weight: 700 
+							font-size: 24px
+							font-weight: 900 
 							letter-spacing: 0.2em
 							text-transform: uppercase
 							text-shadow: 0 0 10px $black 
@@ -95,9 +96,25 @@
 				.projectLink
 					position: absolute
 					top: 50px
-					left: 0 
-					@extend .item
+					left: 40vw 
+					width: 40vw
+					height: 100%
 					cursor: url('../images/pointer-up.png'), auto
+					&:hover
+						text-decoration: none
+				.fancyButton
+						position: relative;
+						display: none
+						top: 40%;
+						right: 0;
+						left: 0;
+						width: 70%;
+						margin: auto;
+						border: 5px solid white
+						background: rgba(0, 0, 0, 0.4)
+						p
+							color: #FFF
+							font-size: 2vw  
 	#projectEntrance
 		position: absolute
 		display: none 
