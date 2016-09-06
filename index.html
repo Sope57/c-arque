@@ -30,7 +30,7 @@
 						</button>
 						<a href="#" class="navbar-brand">
 							<img src="build/images/logoSmall.svg">
-							<img src="build/images/tag.svg">
+							<!-- <img src="build/images/tag.svg"> -->
 						</a>
 					</div>
 					<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -46,13 +46,13 @@
 			<div id="main" class="page active">
 				<div class="container-fluid">
 					<div class="row">
-						<div class="col-xs-12">
-							<a href="#introText" class="navigator">
-								<div id="introImage"></div>
-							</a>
-						</div>
+						<a id="introImage" href="#introText" class="col-xs-12 navigator">
+							<span>
+								<img src="build/images/tag.svg">
+							</span>
+						</a>
 						<div class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2">
-							<p id="introText" class="text-justify">
+							<p id="introText" class="text-justify animate" data-animation='{"opacity": "0", "scale": "0", "ease": "Elastic.easeOut.config(.7, 0.3)"}'>
 								<span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iste odio vel nostrum aspernatur beatae recusandae ratione perspiciatis accusantium, doloremque, quo vitae. Eveniet cum illum non similique porro labore odio facere.</span><span>Ex neque, expedita autem esse maiores, provident sequi quod. Amet ex tempora laudantium rerum, hic iure sapiente explicabo, quo, ipsam, aliquid cumque. Quod minus in placeat, cum praesentium aperiam sint!</span>
 							</p>
 						</div>
@@ -70,127 +70,165 @@
 			<div id="proyectos" class="page">
 				<div id="projectSlider" class="carousel slide">
 					<ol class="carousel-indicators">
-						<li id="slider1" data-target="#projectSlider" data-slide-to="0" class="active">
+						<li id="slider1" data-target="#projectSlider" data-snippet="#snippet1" data-slide-to="0" class="active">
 							<span class="percentage"></span>
 							<span class="projectThumbnail" style="background-image: url(build/images/proyecto1.jpg)"></span>
 							<span class="title">Proyecto 1</span>
 						</li>
-						<li id="slider2" data-target="#projectSlider" data-slide-to="1">
+						<li id="slider2" data-target="#projectSlider" data-snippet="#snippet2" data-slide-to="1">
 							<span class="percentage"></span>
 							<span class="projectThumbnail" style="background-image: url(build/images/proyecto2.jpg)"></span>
 							<span class="title">Proyecto 2</span>
 						</li>
-						<li id="slider3" data-target="#projectSlider" data-slide-to="2">
+						<li id="slider3" data-target="#projectSlider" data-snippet="#snippet3" data-slide-to="2">
 							<span class="percentage"></span>
 							<span class="projectThumbnail" style="background-image: url(build/images/proyecto3.jpg)"></span>
 							<span class="title">Proyecto 3</span>
 						</li>
-						<li id="slider4" data-target="#projectSlider" data-slide-to="3">
+						<li id="slider4" data-target="#projectSlider" data-snippet="#snippet4" data-slide-to="3">
 							<span class="percentage"></span>
 							<span class="projectThumbnail" style="background-image: url(build/images/proyecto4.jpg)"></span>
 							<span class="title">Proyecto 4</span>
 						</li>
-						<li id="slider5" data-target="#projectSlider" data-slide-to="4">
+						<li id="slider5" data-target="#projectSlider" data-snippet="#snippet5" data-slide-to="4">
 							<span class="percentage"></span>
 							<span class="projectThumbnail" style="background-image: url(build/images/proyecto2.jpg)"></span>
 							<span class="title">Proyecto 5</span>
 						</li>
-						<li id="slider6" data-target="#projectSlider" data-slide-to="5">
+						<li id="slider6" data-target="#projectSlider" data-snippet="#snippet6" data-slide-to="5">
 							<span class="percentage"></span>
 							<span class="projectThumbnail" style="background-image: url(build/images/proyecto3.jpg)"></span>
 							<span class="title">Proyecto 6</span>
 						</li>
-						<li id="slider7" data-target="#projectSlider" data-slide-to="6">
+						<li id="slider7" data-target="#projectSlider" data-snippet="#snippet7" data-slide-to="6">
 							<span class="percentage"></span>
 							<span class="projectThumbnail" style="background-image: url(build/images/proyecto4.jpg)"></span>
 							<span class="title">Proyecto 7</span>
 						</li>
 					</ol>
 					<div class="carousel-inner" role="listbox">
-						<div data-sliderId="slider1" data-cursorId="cursor1" data-imageId="proyecto1" class="item active">
+						<div data-sliderId="slider1" data-cursorId="cursor1" data-imageId="proyecto1" data-snippetId="snippet1" class="item active">
 							<div class="projectBackground" style="background-image: url(build/images/proyecto1.jpg)">
-								<a class="projectLink" href="#proyecto1">
-									<div class="fancyButton" href="#proyecto1"><p>Ver Proyecto</p><span></span></div>
-								</a>
-								<div id="cursor1" class="cursor">
-									<div>Proyecto tal # 1</div>
-									<div>Ver proyecto</div>
+								<div class="projectLink" href="#proyecto1">
+									<a class="fancyButton" href="#proyecto1">
+										<p>Proyecto tal # 1</p>
+										<p>Ver proyecto</p>
+										<span></span>
+									</a>
 								</div>
 							</div>
 						</div>
-						<div data-sliderId="slider2" data-cursorId="cursor2" data-imageId="proyecto2" class="item">
+						<div data-sliderId="slider2" data-cursorId="cursor2" data-imageId="proyecto2" data-snippetId="snippet2" class="item">
 							<div class="projectBackground" style="background-image: url(build/images/proyecto2.jpg)">
-								<a class="projectLink" href="#proyecto2">
-									<div class="fancyButton" href="#proyecto2"><p>Ver Proyecto</p><span></span></div>
-								</a>
-								<div id="cursor2" class="cursor">
-									<div>Proyecto tal # 2</div>
-									<div>Ver proyecto</div>
+								<div class="projectLink" href="#proyecto2">
+									<a class="fancyButton" href="#proyecto2">
+										<p>Proyecto tal # 2</p>
+										<p>Ver proyecto</p>
+										<span></span>
+									</a>
 								</div>
 							</div>
 						</div>
-						<div data-sliderId="slider3" data-cursorId="cursor3" data-imageId="proyecto3" class="item">
+						<div data-sliderId="slider3" data-cursorId="cursor3" data-imageId="proyecto3" data-snippetId="snippet3" class="item">
 							<div class="projectBackground" style="background-image: url(build/images/proyecto3.jpg)">
-								<a class="projectLink" href="#proyecto3">
-									<div class="fancyButton" href="#proyecto3"><p>Ver Proyecto</p><span></span></div>
-								</a>
-								<div id="cursor3" class="cursor">
-									<div>Proyecto tal # 3</div>
-									<div>Ver proyecto</div>
+								<div class="projectLink" href="#proyecto3">
+									<a class="fancyButton" href="#proyecto3">
+										<p>Proyecto tal # 3</p>
+										<p>Ver proyecto</p>
+										<span></span>
+									</a>
 								</div>
 							</div>
 						</div>
-						<div data-sliderId="slider4" data-cursorId="cursor4" data-imageId="proyecto4" class="item">
+						<div data-sliderId="slider4" data-cursorId="cursor4" data-imageId="proyecto4" data-snippetId="snippet4" class="item">
 							<div class="projectBackground" style="background-image: url(build/images/proyecto4.jpg)">
-								<a class="projectLink" href="#proyecto4">
-									<div class="fancyButton" href="#proyecto4"><p>Ver Proyecto</p><span></span></div>
-								</a>
-								<div id="cursor4" class="cursor">
-									<div>Proyecto tal # 4</div>
-									<div>Ver proyecto</div>
+								<div class="projectLink" href="#proyecto4">
+									<a class="fancyButton" href="#proyecto4">
+										<p>Proyecto tal # 4</p>
+										<p>Ver proyecto</p>
+										<span></span>
+									</a>
 								</div>
 							</div>
 						</div>
-						<div data-sliderId="slider5" data-cursorId="cursor5" data-imageId="proyecto2" class="item">
+						<div data-sliderId="slider5" data-cursorId="cursor5" data-imageId="proyecto2" data-snippetId="snippet5" class="item">
 							<div class="projectBackground" style="background-image: url(build/images/proyecto2.jpg)">
-								<a class="projectLink" href="#proyecto5">
-									<div class="fancyButton" href="#proyecto5"><p>Ver Proyecto</p><span></span></div>
-								</a>
-								<div id="cursor5" class="cursor">
-									<div>Proyecto tal # 5</div>
-									<div>Ver proyecto</div>
+								<div class="projectLink" href="#proyecto5">
+									<a class="fancyButton" href="#proyecto5">
+										<p>Proyecto tal # 5</p>
+										<p>Ver proyecto</p>
+										<span></span>
+									</a>
 								</div>
 							</div>
 						</div>
-						<div data-sliderId="slider6" data-cursorId="cursor6" data-imageId="proyecto3" class="item">
+						<div data-sliderId="slider6" data-cursorId="cursor6" data-imageId="proyecto3" data-snippetId="snippet6" class="item">
 							<div class="projectBackground" style="background-image: url(build/images/proyecto3.jpg)">
-								<a class="projectLink" href="#proyecto6">
-									<div class="fancyButton" href="#proyecto6"><p>Ver Proyecto</p><span></span></div>
-								</a>
-								<div id="cursor6" class="cursor">
-									<div>Proyecto tal # 6</div>
-									<div>Ver proyecto</div>
+								<div class="projectLink" href="#proyecto6">
+									<a class="fancyButton" href="#proyecto6">
+										<p>Proyecto tal # 6</p>
+										<p>Ver proyecto</p>
+										<span></span>
+									</a>
 								</div>
 							</div>
 						</div>
-						<div data-sliderId="slider7" data-cursorId="cursor7" data-imageId="proyecto4" class="item">
+						<div data-sliderId="slider7" data-cursorId="cursor7" data-imageId="proyecto4" data-snippetId="snippet7" class="item">
 							<div class="projectBackground" style="background-image: url(build/images/proyecto4.jpg)">
-								<a class="projectLink" href="#proyecto7">
-									<div class="fancyButton" href="#proyecto7"><p>Ver Proyecto</p><span></span></div>
-								</a>
-								<div id="cursor7" class="cursor">
-									<div>Proyecto tal # 7</div>
-									<div>Ver proyecto</div>
+								<div class="projectLink" href="#proyecto7">
+									<a class="fancyButton" href="#proyecto7">
+										<p>Proyecto tal # 7</p>
+										<p>Ver proyecto</p>
+										<span></span>
+									</a>
 								</div>
 							</div>
 						</div>
 					</div>
-					<a class="left carousel-control" href="#projectSlider" role="button" data-slide="prev">
-						<span class="sr-only">Previous</span>
-					</a>
-					<a class="right carousel-control" href="#projectSlider" role="button" data-slide="next">
-						<span class="sr-only">Next</span>
-					</a>
+					<div id="projectSnippets">
+						<div id="snippet1" class="snippet active">
+							<h1>Ficha técnica 1</h1>
+							<p>Proyecto comercial</p>
+							<p>Tal cosa tal cosa</p>
+							<p>Tal otra cosa</p>
+						</div>
+						<div id="snippet2" class="snippet">
+							<h1>Ficha técnica 2</h1>
+							<p>Proyecto comercial</p>
+							<p>Tal cosa tal cosa</p>
+							<p>Tal otra cosa</p>
+						</div>
+						<div id="snippet3" class="snippet">
+							<h1>Ficha técnica 3</h1>
+							<p>Proyecto comercial</p>
+							<p>Tal cosa tal cosa</p>
+							<p>Tal otra cosa</p>
+						</div>
+						<div id="snippet4" class="snippet">
+							<h1>Ficha técnica 4</h1>
+							<p>Proyecto comercial</p>
+							<p>Tal cosa tal cosa</p>
+							<p>Tal otra cosa</p>
+						</div>
+						<div id="snippet5" class="snippet">
+							<h1>Ficha técnica 5</h1>
+							<p>Proyecto comercial</p>
+							<p>Tal cosa tal cosa</p>
+							<p>Tal otra cosa</p>
+						</div>
+						<div id="snippet6" class="snippet">
+							<h1>Ficha técnica 6</h1>
+							<p>Proyecto comercial</p>
+							<p>Tal cosa tal cosa</p>
+							<p>Tal otra cosa</p>
+						</div>
+						<div id="snippet7" class="snippet">
+							<h1>Ficha técnica 7</h1>
+							<p>Proyecto comercial</p>
+							<p>Tal cosa tal cosa</p>
+							<p>Tal otra cosa</p>
+						</div>
+					</div>
 				</div>
 
 				<div id="projectEntrance">
@@ -236,52 +274,6 @@
 			<div id="arte" class="page">
 				<div class="container">
 					<div class="row">
-						<!-- <div class="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-0 col-md-4 col-md-offset-0">
-							<div class="artContainer">
-								<img src="build/images/portfolioImage.jpg" alt="">
-								<p>This is some dummy text.</p>
-							</div>
-							<div class="artContainer">
-								<img src="build/images/introImage.jpg" alt="">
-								<p>This is some dummy text.</p>
-							</div>
-							<div class="artContainer">
-								<img src="build/images/art.jpg" alt="">
-								<p>This is some dummy text.</p>
-							</div>
-						</div>
-						<div class="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-0 col-md-4 col-md-offset-0">
-							<div class="artContainer">
-								<img src="build/images/art.jpg" alt="">
-								<p>This is some dummy text.</p>
-							</div>
-							<div class="artContainer">
-								<img src="build/images/art.jpg" alt="">
-								<p>This is some dummy text.</p>
-							</div>
-							<div class="artContainer">
-								<img src="build/images/introImage.jpg" alt="">
-								<p>This is some dummy text.</p>
-							</div>
-						</div>
-						<div class="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-0 col-md-4 col-md-offset-0">
-							<div class="artContainer">
-								<img src="build/images/introImage.jpg" alt="">
-								<p>This is some dummy text.</p>
-							</div>
-							<div class="artContainer">
-								<img src="build/images/portfolioImage.jpg" alt="">
-								<p>This is some dummy text.</p>
-							</div>
-							<div class="artContainer">
-								<img src="build/images/art.jpg" alt="">
-								<p>This is some dummy text.</p>
-							</div>
-						</div> -->
-
-
-
-
 						<div class="col-xs-12 col-sm-6 col-md-4">
 							<div class="tile">
 								<div class="hoverSlider">
@@ -390,10 +382,6 @@
 								</div>
 							</div>
 						</div>
-
-
-
-
 					</div>
 				</div>
 			</div>
@@ -408,8 +396,9 @@
 			</div>
 
 		</div>
-		<script   src="https://code.jquery.com/jquery-3.1.0.min.js"   integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="   crossorigin="anonymous"></script>
+		<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.0/TweenMax.min.js"></script>
 		<script type="text/javascript" src="build/js/jquery.visible.js"></script>
 		<script type="text/javascript" src="build/js/scripts.js"></script>
 	</body>

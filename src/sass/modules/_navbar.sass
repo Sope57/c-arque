@@ -2,23 +2,27 @@
 .navbar 
 	border: none
 	+borderRadius(0);
-	background-color: #FFF
+	background-color: $black
+	// background-color: #FFF
 	-webkit-box-shadow: none 
 	box-shadow: none 
 	+transition(background-color 0.75s, box-shadow 0.75s)
 	.navbar-nav
 		li
 			a
-				color: $black
+				color: #FFF
+				// color: $black
 				padding-bottom: 5px
-				margin: 0 12px 10px 
+				margin: 25px 12px 15px 
 				font-weight: 500
 				text-transform: uppercase
 				+transition(border-bottom 0.20s, color 0.75s)
 				&:hover
-					color: $black
+					color: #FFF
+					// color: $black
 					background-color: inherit
-					border-bottom: 4px solid $black
+					border-bottom: 4px solid #FFF
+					// border-bottom: 4px solid $black
 					margin-bottom: 6px
 			&:last-of-type
 				a
@@ -31,22 +35,23 @@
 					@extend a:hover
 					text-decoration: none
 	.navbar-brand
+		height: 80px
 		margin-left: 0px !important
-		padding: 5px 0
+		padding: 10px 0
 		img
 			display: inline
-			width: 40px
-			height: 40px
-			-webkit-filter: brightness(0%)
-			filter: brightness(0%)
-			+transition(filter 0.75s)
+			width: 60px
+			height: 60px
+			// -webkit-filter: brightness(0%)
+			// filter: brightness(0%)
+			// +transition(filter 0.75s)
 			&+img
 				width: 200px
 				height: 30px
 	&.inPage
 		background-color: rgba(0,0,0,0.5)
-		-webkit-box-shadow: 0 0 25px $black
-		box-shadow: 0 0 25px $black
+		// -webkit-box-shadow: 0 0 25px $black
+		// box-shadow: 0 0 25px $black
 		.navbar-nav
 			li
 				a
@@ -57,14 +62,34 @@
 				a
 					&:hover
 						color: #FFF
-		.navbar-brand
-			img
-				-webkit-filter: brightness(10000%)
-				filter: brightness(10000%)
+		// .navbar-brand
+		// 	img
+		// 		-webkit-filter: brightness(10000%)
+		// 		filter: brightness(10000%)
 		.navbar-toggle
 			border: 4px solid #FFF
 			.icon-bar
 				background-color: #FFF
+	// &.inProject
+	// 	background-color: #FFF
+	// 	.navbar-nav
+	// 		li
+	// 			a
+	// 				color: $black
+	// 				&:hover
+	// 					border-bottom: 4px solid $black
+	// 		li.active
+	// 			a
+	// 				&:hover
+	// 					color: $black
+	// 	.navbar-brand
+	// 		img
+	// 			-webkit-filter: brightness(0%)
+	// 			filter: brightness(0%)
+	// 	.navbar-toggle
+	// 		border: 4px solid #FFF
+	// 		.icon-bar
+	// 			background-color: #FFF
 	.navbar-toggle
 		width: 40px
 		height: 40px

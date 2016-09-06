@@ -4,26 +4,16 @@
 	width: 100%
 	height: 100%
 	margin: 0
-	background-color: #FFF 
+	background-color: $black
 	overflow: hidden
 	#projectSlider
 		height: 100%
-		.carousel-control
+		.carousel-indicators
+			left: initial 
+			right: 0
+			top: 80px
 			width: 20vw
-			margin-top: 50px
-			opacity: 1
-			&.left
-				margin-left: 20vw
-				cursor: url('../images/pointer-left.png'), auto
-				+backgroundLinearGradient(to right, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%)
-			&.right
-				cursor: url('../images/pointer-right.png'), auto
-				+backgroundLinearGradient(to left, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%)
-		.carousel-indicators 
-			left: 0
-			top: 50px
-			width: 20vw
-			height: calc(100% - 50px)
+			height: calc(100% - 80px)
 			margin: 0
 			li
 				position: relative
@@ -32,24 +22,25 @@
 				width: 100%
 				height: 14.2857142857%
 				margin: 0
-				background-color: rgba(0,0,0,0.75)
-				border: 1px solid #777  
+				background-color: rgba(0,0,0,0.5)
+				border: none  
 				+borderRadius(0)
 				.percentage
 					position: absolute
 					top: 0 
-					left: 0
-					width: 10px
+					right: 0
+					width: 2px
 					height: 0
 					background-color: #FFF
 				.projectThumbnail
 					position: absolute
 					top: 10% 
-					left: calc(10% + 5px)
-					width: 80%
+					left: calc(7.5% - 1px)
+					width: 85%
 					height: 80%
 					@extend .bgnrccov
-					+transition(height 0.5s)
+					+filter(grayscale(100%))
+					+transition(height 0.6s, filter 0.6s)
 				.title
 					position: absolute
 					bottom: 7%
@@ -63,14 +54,18 @@
 					letter-spacing: 0.3em  
 					overflow: hidden
 					opacity: 0
-					+transition(left 0.5s, height 0.5s, opacity 0.5s)
-				&.active
+					+transition(left 0.6s, height 0.6s, opacity 0.4s)
+				&:hover, &.active
 					.projectThumbnail
 						height: 60%
+						+filter(grayscale(0%))
+						+transition(height 0.3s cubic-bezier(0, 0.7, 0.3, 1), filter 0.3s cubic-bezier(0, 0.7, 0.3, 1))
 					.title
 						left: calc(10% + 5px)
 						height: 20%
 						opacity: 1
+						+transition(left 0.3s cubic-bezier(0, 0.7, 0.3, 1), height 0.3s cubic-bezier(0, 0.7, 0.3, 1), opacity 0.5s)
+						
 		.carousel-inner
 			height: 100%
 			.item
@@ -79,42 +74,84 @@
 				.projectBackground
 				 @extend .item
 				 @extend .bgnrccov
-					.cursor
-						display: none
-						margin-top: 6px
-						div
-							margin-left: 55px
-							color: #FFF
-							font-size: 24px
-							font-weight: 900 
-							letter-spacing: 0.2em
-							text-transform: uppercase
-							text-shadow: 0 0 10px $black 
-							&+div
-								font-size: 14px
-								font-weight: 400 			 
+				.projectTitle
+					position: absolute
+					display: none
+					top: 5%
+					right: 0
+					left: 0
+					width: 70%
+					margin: auto 
+					color: #FFF
+					font-size: 4vw
+					font-weight: 700 
+					letter-spacing: 0.2em
+					text-transform: uppercase
+					text-shadow: 0 0 10px $black  			 
 				.projectLink
 					position: absolute
 					top: 50px
-					left: 40vw 
-					width: 40vw
+					width: 100%
 					height: 100%
-					cursor: url('../images/pointer-up.png'), auto
 					&:hover
 						text-decoration: none
 				.fancyButton
-						position: relative;
-						display: none
-						top: 40%;
-						right: 0;
-						left: 0;
-						width: 70%;
-						margin: auto;
-						border: 5px solid white
-						background: rgba(0, 0, 0, 0.4)
+					position: absolute;
+					top: 40%
+					right: 0;
+					left: 0;
+					width: 40%;
+					margin: auto;
+					border: none
+					background: rgba(0, 0, 0, 0.4)
+					p
+						color: #FFF
+						font-size: 2vw
+						&:last-of-type
+							font-size: 1vw
+							margin-top: 0
+					span
+						background: #FFF
+					&:hover
 						p
-							color: #FFF
-							font-size: 2vw  
+							color: $black 
+						span
+							width: 2000px
+							height: 2000px
+		#projectSnippets
+			position: absolute
+			left: 0
+			top: 80px
+			width: 20vw
+			height: calc(100% - 80px)
+			margin: 0
+			// background-color: rgba(0,0,0,0.5)
+			overflow: hidden
+			.snippet
+				position: absolute
+				left: 10vw 
+				width: calc(100% - 40px)
+				height: 100%
+				color: #FFF
+				text-shadow: 1px 1px 2px #000
+				opacity: 0
+				+transition(left 3s cubic-bezier(0.15, 0.5, 0.4, 1), opacity 1s cubic-bezier(0.15, 0.5, 0.4, 1))
+				h1
+					font-size: 24px	
+					text-transform: uppercase
+				p
+					font-size: 16px
+					text-transform: uppercase
+			.active
+				left: 20px
+				opacity: 1
+				+transition(left 2s cubic-bezier(0.15, 0.5, 0.4, 1), opacity 2.5s cubic-bezier(0.15, 0.5, 0.4, 1))
+			// .hidden
+			// 	opacity: 0
+			// .show
+			// 	left: 20px
+			// 	opacity: 1
+			// 	+transition(left 1.5s cubic-bezier(0.15, 0.5, 0.4, 1), opacity 1.5s cubic-bezier(0.15, 0.5, 0.4, 1))
 	#projectEntrance
 		position: absolute
 		display: none 
@@ -126,10 +163,10 @@
 		@extend .bgnrccov 
 		.bar
 			position: absolute
-			background-color: #FFF
+			background-color: $black
 		.top
 			width: 100%
-			height: 10%
+			height: 80px
 			top: 0 
 			left: -100% 
 		.right
@@ -139,7 +176,7 @@
 			top: -100%
 		.bottom
 			width: 100%
-			height: 10%
+			height: 80px
 			bottom: 0 
 			right: -100% 
 		.left
@@ -148,24 +185,24 @@
 			left: 0 
 			bottom: -100%
 	#projectView
-		display: none
 		margin-top: 100px
 		border: none 
-		opacity: 0 
+		opacity: 0
 		#projectName
 			margin: 0
 			margin-bottom: 15px 
 			font-size: 50px
+			color: #FFF
 			text-transform: uppercase 
 		#projectImage
 			height: 50vh
-			border: 5px solid white 
+			border: 5px solid $black
 			@extend .bgnrccov
 		#projectImages
 			height: 50vh
 			.image
 				height: 33.3333%
-				border: 5px solid white
+				border: 5px solid $black
 				@extend .bgnrccov
 				cursor: pointer
 				.look
@@ -184,6 +221,7 @@
 			margin: 0
 			margin-top: 15px 
 			font-size: 16px
+			color: #FFF
 		#moreProjects
 			margin-top: 25px 
 			width: 100%

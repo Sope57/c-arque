@@ -1,10 +1,11 @@
 $(function() {
-	var $introImage = $("#introImage");
 	var $window = $(window);
+	var $introImage = $("#introImage");
+	var $animatedElements = $(".animate");
 
 	$window.on('scroll', function() {
 		var $scrolledY = $(this).scrollTop();
-		$introImage.css('background-position', '0% ' + $scrolledY * .05 + '%');
+		TweenLite.to($introImage, 0.5, {backgroundPosition : "0% " + $scrolledY * .05 + "%"});
 	});
 	$(".navbar-brand").on('click', function() {
 		$("#main").show();
@@ -41,23 +42,22 @@ $(function() {
 			$(".navbar").removeClass("inPage");
 		}
 		$($pageId).addClass("active").slideDown(500, function() {
-			switch ($pageId) {
-				case '#proyectos':
-					// $("#moreProjects").animate({
-					// 	'opacity' : '1',
-					// 	// 'bottom' : '15vh'
-					// }, 750);
-					break;
-				case '#arte':
-					break;
-				case '#contacto':
-					break;
-				case 'default':
-					break;
-			}
 			$($pageId).siblings(".page").hide();
 		});
 		$($pageId).siblings(".active").removeClass("active");
+		switch ($pageId) {
+			case '#proyectos':
+				break;
+			case '#arte':
+				// if ($("#arte").hasClass("active") === false) {
+					TweenMax.staggerFrom($("#arte .tile"), 0.3, {scale: 0, borderRadius: 100, opacity: 0, delay : 0.3}, 0.15)
+				// }
+				break;
+			case '#contacto':
+				break;
+			case 'default':
+				break;
+		}
 	});
 	
   	$('.fancyButton').on('mouseenter', function(e) {
@@ -75,10 +75,12 @@ $(function() {
 	$(".tile").hover(function(){
 		if ($window.width() > 768) {
 			var moveUp = $(this).find(".details").outerHeight(true);
-			$(this).find(".details").css('transform', 'translateY(-' + moveUp + 'px)');
+			TweenLite.to($(this).find(".details"), 0.4, {y : -moveUp, ease : Power4.easeOut});
+			TweenLite.to($(this).find(".background"), 0.4, {y : "-15%", ease : Power4.easeOut});
 		}
 	}, function() {
-		$(this).find(".details").css('transform', 'translateY(0px)');
+		TweenLite.to($(this).find(".details"), 0.4, {y : 0});
+		TweenLite.to($(this).find(".background"), 0.4, {y : "0%"});
 	});
 
     $('.navigator').on('click', function (event) {
@@ -90,5 +92,17 @@ $(function() {
             }, 750);
         }
     });
+
+
+    $window.on('scroll', function() {
+		var $windowPosition = $(this).scrollTop() +  $(this).height();
+		$animatedElements.each(function() {
+    		if ($windowPosition > $(this).offset().top && $(this).hasClass("animate")) {
+    			$(this).removeClass("animate");
+				TweenLite.from($(this), 1, jQuery.parseJSON($(this).attr("data-animation")));
+    		}
+		})
+	});
+
 
 });

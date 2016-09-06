@@ -1,3 +1,4 @@
+var $body = $("body");
 var $preload = $(".se-pre-con");
 var $preloadImg = $preload.find("img");
 var $app = $(".app");
@@ -9,52 +10,24 @@ var $bottom = $preload.find(".bottom");
 var $left = $preload.find(".left");
 var $tag = $(".navbar-brand img");
 
-$(window).on('load', function() {
-    $top.css({
-        'left' : ($width/2)+77 + 'px'
-    });
-    $top.animate({ 
-        'top' : ($height/2)-100 + 'px',
-        'height' : '200px' 
-    }, 500);
-    $right.css({
-        'top' : ($height/2)+77 + 'px'
-    });
-    $right.delay(150).animate({ 
-        'right' : ($width/2)-100 + 'px',
-        'width' : '200px' 
-    }, 500);
-    $bottom.css({
-        'left' : ($width/2)-100 + 'px'
-    });
-    $bottom.delay(300).animate({ 
-        'bottom' : ($height/2)-100 + 'px',
-        'height' : '200px' 
-    }, 500);
-    $left.css({
-        'top' : ($height/2)-100 + 'px'
-    });
-    $left.delay(550).animate({ 
-        'left' : ($width/2)-100 + 'px',
-        'width' : '200px' 
-    }, 500, function(){
-        $preloadImg.fadeIn(1000, function(){
-            $top.hide();
-            $right.hide();
-            $bottom.hide();
-            $left.hide();
-            $preloadImg.animate({
-                'width' : '40px',
-                'height' : '40px'
-            }, 1000);
-            $preload.animate({
-                'width' : '70px',
-                'height' : '50px'
-            }, 1000, function() {
-                $app.fadeIn(1000, function() {
-                    $preload.hide();
-                });
-            });
-        });
-    });
+$(function() {
+    var preloadTimeline = new TimelineLite({delay : 0.25});
+    preloadTimeline.to($top, 0, {left : ($width/2)+77})
+        .to($right, 0, {top : ($height/2)+77})
+        .to($bottom, 0, {left : ($width/2)-100})
+        .to($left, 0, {top : ($height/2)-100})
+        .to($top, 0.75, {top : ($height/2)-100, height : 200, ease: Power3.easeOut})
+        .to($right, 0.75, {right : ($width/2)-100, width : 200, ease: Power3.easeOut}, "-=0.5")
+        .to($bottom, 0.75, {bottom : ($height/2)-101, height : 200, ease: Power3.easeOut}, "-=0.5")
+        .to($left, 0.75, {left : ($width/2)-100, width : 200, ease: Power3.easeOut}, "-=0.5")
+        .to($preloadImg, 1.5, {opacity : 1})
+        .to($top, 0, {display : "none"})
+        .to($right, 0, {display : "none"})
+        .to($bottom, 0, {display : "none"})
+        .to($left, 0, {display : "none"})
+        .to($preloadImg, 1, {width : 60, height : 60})
+        .to($preload, 1, {width : 90, height : 80}, "-=1")
+        .to($app, 1, {display : "block", opacity: 1})
+        .to($body, 0, {backgroundColor : "#FFF"})
+        .to($preload, 0, {display : "none"});
 });

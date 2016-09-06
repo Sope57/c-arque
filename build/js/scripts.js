@@ -11,11 +11,14 @@
 // 	$(".container").height(biggestHeight);
 // });
 $(function() {
-    var $introImage = $("#introImage");
     var $window = $(window);
+    var $introImage = $("#introImage");
+    var $animatedElements = $(".animate");
     $window.on("scroll", function() {
         var $scrolledY = $(this).scrollTop();
-        $introImage.css("background-position", "0% " + $scrolledY * .05 + "%");
+        TweenLite.to($introImage, .5, {
+            backgroundPosition: "0% " + $scrolledY * .05 + "%"
+        });
     });
     $(".navbar-brand").on("click", function() {
         $("#main").show();
@@ -54,26 +57,30 @@ $(function() {
             $(".navbar").removeClass("inPage");
         }
         $($pageId).addClass("active").slideDown(500, function() {
-            switch ($pageId) {
-              case "#proyectos":
-                // $("#moreProjects").animate({
-                // 	'opacity' : '1',
-                // 	// 'bottom' : '15vh'
-                // }, 750);
-                break;
-
-              case "#arte":
-                break;
-
-              case "#contacto":
-                break;
-
-              case "default":
-                break;
-            }
             $($pageId).siblings(".page").hide();
         });
         $($pageId).siblings(".active").removeClass("active");
+        switch ($pageId) {
+          case "#proyectos":
+            break;
+
+          case "#arte":
+            // if ($("#arte").hasClass("active") === false) {
+            TweenMax.staggerFrom($("#arte .tile"), .3, {
+                scale: 0,
+                borderRadius: 100,
+                opacity: 0,
+                delay: .3
+            }, .15);
+            // }
+            break;
+
+          case "#contacto":
+            break;
+
+          case "default":
+            break;
+        }
     });
     $(".fancyButton").on("mouseenter", function(e) {
         var parentOffset = $(this).offset(), relX = e.pageX - parentOffset.left, relY = e.pageY - parentOffset.top;
@@ -91,10 +98,22 @@ $(function() {
     $(".tile").hover(function() {
         if ($window.width() > 768) {
             var moveUp = $(this).find(".details").outerHeight(true);
-            $(this).find(".details").css("transform", "translateY(-" + moveUp + "px)");
+            TweenLite.to($(this).find(".details"), .4, {
+                y: -moveUp,
+                ease: Power4.easeOut
+            });
+            TweenLite.to($(this).find(".background"), .4, {
+                y: "-15%",
+                ease: Power4.easeOut
+            });
         }
     }, function() {
-        $(this).find(".details").css("transform", "translateY(0px)");
+        TweenLite.to($(this).find(".details"), .4, {
+            y: 0
+        });
+        TweenLite.to($(this).find(".background"), .4, {
+            y: "0%"
+        });
     });
     $(".navigator").on("click", function(event) {
         var target = $($(this).attr("href"));
@@ -105,7 +124,18 @@ $(function() {
             }, 750);
         }
     });
+    $window.on("scroll", function() {
+        var $windowPosition = $(this).scrollTop() + $(this).height();
+        $animatedElements.each(function() {
+            if ($windowPosition > $(this).offset().top && $(this).hasClass("animate")) {
+                $(this).removeClass("animate");
+                TweenLite.from($(this), 1, jQuery.parseJSON($(this).attr("data-animation")));
+            }
+        });
+    });
 });
+
+var $body = $("body");
 
 var $preload = $(".se-pre-con");
 
@@ -127,60 +157,67 @@ var $left = $preload.find(".left");
 
 var $tag = $(".navbar-brand img");
 
-$(window).on("load", function() {
-    $top.css({
-        left: $width / 2 + 77 + "px"
+$(function() {
+    var preloadTimeline = new TimelineLite({
+        delay: .25
     });
-    $top.animate({
-        top: $height / 2 - 100 + "px",
-        height: "200px"
-    }, 500);
-    $right.css({
-        top: $height / 2 + 77 + "px"
-    });
-    $right.delay(150).animate({
-        right: $width / 2 - 100 + "px",
-        width: "200px"
-    }, 500);
-    $bottom.css({
-        left: $width / 2 - 100 + "px"
-    });
-    $bottom.delay(300).animate({
-        bottom: $height / 2 - 100 + "px",
-        height: "200px"
-    }, 500);
-    $left.css({
-        top: $height / 2 - 100 + "px"
-    });
-    $left.delay(550).animate({
-        left: $width / 2 - 100 + "px",
-        width: "200px"
-    }, 500, function() {
-        $preloadImg.fadeIn(1e3, function() {
-            $top.hide();
-            $right.hide();
-            $bottom.hide();
-            $left.hide();
-            $preloadImg.animate({
-                width: "40px",
-                height: "40px"
-            }, 1e3);
-            $preload.animate({
-                width: "70px",
-                height: "50px"
-            }, 1e3, function() {
-                $app.fadeIn(1e3, function() {
-                    $preload.hide();
-                });
-            });
-        });
+    preloadTimeline.to($top, 0, {
+        left: $width / 2 + 77
+    }).to($right, 0, {
+        top: $height / 2 + 77
+    }).to($bottom, 0, {
+        left: $width / 2 - 100
+    }).to($left, 0, {
+        top: $height / 2 - 100
+    }).to($top, .75, {
+        top: $height / 2 - 100,
+        height: 200,
+        ease: Power3.easeOut
+    }).to($right, .75, {
+        right: $width / 2 - 100,
+        width: 200,
+        ease: Power3.easeOut
+    }, "-=0.5").to($bottom, .75, {
+        bottom: $height / 2 - 101,
+        height: 200,
+        ease: Power3.easeOut
+    }, "-=0.5").to($left, .75, {
+        left: $width / 2 - 100,
+        width: 200,
+        ease: Power3.easeOut
+    }, "-=0.5").to($preloadImg, 1.5, {
+        opacity: 1
+    }).to($top, 0, {
+        display: "none"
+    }).to($right, 0, {
+        display: "none"
+    }).to($bottom, 0, {
+        display: "none"
+    }).to($left, 0, {
+        display: "none"
+    }).to($preloadImg, 1, {
+        width: 60,
+        height: 60
+    }).to($preload, 1, {
+        width: 90,
+        height: 80
+    }, "-=1").to($app, 1, {
+        display: "block",
+        opacity: 1
+    }).to($body, 0, {
+        backgroundColor: "#FFF"
+    }).to($preload, 0, {
+        display: "none"
     });
 });
 
 $(function() {
     var $projects = $("#proyectos");
-    var $slides = $(".carousel-inner .item");
     var $carousel = $("#projectSlider");
+    var $indicators = $(".carousel-indicators");
+    var $sliders = $(".carousel-indicators li");
+    var $slides = $(".carousel-inner .item");
+    var $snippets = $("#projectSnippets");
     var $slideInterval = 1e4;
     var $projectEntrance = $("#projectEntrance");
     var $topBar = $projectEntrance.find(".top");
@@ -189,116 +226,75 @@ $(function() {
     var $leftBar = $projectEntrance.find(".left");
     var $projectView = $("#projectView");
     var $backButton = $("#moreProjects");
-    var ElementCursor = {
-        cursorElement: "",
-        currentMousePos: {
-            x: -1,
-            y: -1
-        },
-        setCursor: function(cursorId) {
-            $carousel.find(".item").css({
-                cursor: "none"
-            });
-            ElementCursor.cursorElement = cursorId;
-            ElementCursor.updateCursor();
-        },
-        removeCursor: function() {
-            $carousel.find(".item").css({
-                cursor: ""
-            });
-            ElementCursor.cursorElement = "";
-        },
-        updateCursor: function() {
-            $carousel.find(".item").mousemove(function(e) {
-                ElementCursor.currentMousePos.x = e.pageX;
-                ElementCursor.currentMousePos.y = e.pageY;
-                $("#" + ElementCursor.cursorElement).css({
-                    position: "fixed",
-                    "user-select": "none",
-                    top: ElementCursor.currentMousePos.y + 2 + "px",
-                    left: ElementCursor.currentMousePos.x + 2 + "px"
-                });
-            });
-        }
-    };
     $carousel.carousel({
         interval: $slideInterval,
         pause: null
-    });
-    $carousel.find(".carousel-indicators .active .percentage").animate({
+    }).find(".carousel-indicators .active .percentage").animate({
         height: "100%"
     }, $slideInterval, "linear");
+    $indicators.hover(function() {
+        $(this).addClass("hovered");
+        $(this).find("li").hover(function() {
+            $($(this).attr("data-snippet")).addClass("active");
+            $($(this).attr("data-snippet")).siblings().removeClass("active");
+        });
+    }, function() {
+        $(this).removeClass("hovered");
+        $($(this).find("li.active").attr("data-snippet")).addClass("active");
+        $($(this).find("li.active").attr("data-snippet")).siblings().removeClass("active");
+    });
     $carousel.bind("slide.bs.carousel", function(e) {
-        var $activeItem = $("#" + $(e.relatedTarget).attr("data-sliderId"));
-        $activeItem.find(".percentage").css("height", "0px").animate({
+        var $activeSlider = $("#" + $(e.relatedTarget).attr("data-sliderId"));
+        var $activeSnippet = $("#" + $(e.relatedTarget).attr("data-snippetId"));
+        $activeSlider.find(".percentage").css("height", "0px").animate({
             height: "100%"
         }, $slideInterval, "linear");
-        $activeItem.prevAll().find(".percentage").stop().css("height", "100%");
-        $activeItem.nextAll().find(".percentage").stop().css("height", "0%");
-        var $windowWidth = $(window).width();
-        $(e.relatedTarget).prev().find(".cursor").hide();
-        if (ElementCursor.currentMousePos.x > $windowWidth / 5 * 2 + 20 && ElementCursor.currentMousePos.x < $windowWidth - $windowWidth / 5 - 20 && ElementCursor.currentMousePos.y > 60) {
-            $(e.relatedTarget).find(".cursor").delay(750).slideDown(750).css({
-                position: "fixed",
-                "user-select": "none",
-                top: ElementCursor.currentMousePos.y + 2 + "px",
-                left: ElementCursor.currentMousePos.x + 2 + "px"
-            });
+        $activeSlider.prevAll().find(".percentage").stop().css("height", "100%");
+        $activeSlider.nextAll().find(".percentage").stop().css("height", "0%");
+        if ($indicators.hasClass("hovered") == false) {
+            $activeSnippet.addClass("active");
+            $activeSnippet.siblings().removeClass("active");
         }
-    });
-    $slides.hover(function() {
-        $(this).find(".cursor").slideDown(750);
-        var cursor = $(this).attr("data-cursorId");
-        ElementCursor.setCursor(cursor);
-    }, function() {
-        $(this).find(".cursor").hide();
-        ElementCursor.removeCursor();
     });
     $slides.on("click", function() {
         $(".navbar").removeClass("inPage");
         $(".navbar").addClass("inProject");
         $projectEntrance.css("background-image", "url(build/images/" + $(this).attr("data-imageId") + ".jpg)");
-        $projectEntrance.show();
         $carousel.carousel("pause");
-        $carousel.hide();
-        $topBar.animate({
-            left: "0px"
-        }, 250);
-        $rightBar.delay(150).animate({
-            top: "0px"
-        }, 250);
-        $bottomBar.delay(300).animate({
-            right: "0px"
-        }, 250);
-        $leftBar.delay(450).animate({
-            bottom: "0px"
-        }, 250, function() {
-            $projectView.show();
-            $topBar.animate({
-                height: "0px"
-            }, 500);
-            $rightBar.animate({
-                width: "0px"
-            }, 500);
-            $bottomBar.animate({
-                height: "0px"
-            }, 500);
-            $leftBar.animate({
-                width: "0px"
-            }, 500);
-            $projectEntrance.css("border", "5px solid #FFF").animate({
-                width: $projectView.find("#projectImage").outerWidth() + "px",
-                height: "50vh",
-                top: $projectView.find("#projectImage").offset().top + "px",
-                left: $projectView.find("#projectImage").offset().left + "px"
-            }, 500, function() {
-                $projects.css("height", "auto");
-                $projectView.animate({
-                    opacity: "1"
-                }, 750, function() {
-                    $projectEntrance.hide();
-                });
-            });
+        var projectEntranceTimeline = new TimelineLite();
+        projectEntranceTimeline.to($projectEntrance, 0, {
+            display: "block"
+        }).to($carousel, 0, {
+            display: "none"
+        }).to($topBar, .35, {
+            left: 0
+        }).to($rightBar, .35, {
+            top: 0
+        }, "-=0.15").to($bottomBar, .35, {
+            right: 0
+        }, "-=0.15").to($leftBar, .35, {
+            bottom: 0
+        }, "-=0.15").to($topBar, .5, {
+            height: 0
+        }).to($rightBar, .5, {
+            width: 0
+        }, "-=0.5").to($bottomBar, .5, {
+            height: 0
+        }, "-=0.5").to($leftBar, .5, {
+            width: 0
+        }, "-=0.5").to($projectEntrance, 0, {
+            border: "5px solid #171717"
+        }, "-=0.5").to($projectEntrance, .5, {
+            width: $projectView.find("#projectImage").outerWidth(),
+            height: "50vh",
+            top: $projectView.find("#projectImage").offset().top,
+            left: $projectView.find("#projectImage").offset().left
+        }, "-=0.5").to($projects, 0, {
+            height: "auto"
+        }).to($projectView, .75, {
+            opacity: 1
+        }).to($projectEntrance, 0, {
+            display: "none"
         });
     });
     $projectView.find("#projectImages").hover(function() {
@@ -314,54 +310,52 @@ $(function() {
         $projectView.find("#projectImage").css("background-image", "url(build/images/" + $projectImage + ")");
     });
     $backButton.on("click", function() {
-        $projectEntrance.css({
-            width: $projectView.find("#projectImage").outerWidth() + "px",
-            top: $projectView.find("#projectImage").offset().top + "px",
-            left: $projectView.find("#projectImage").offset().left + "px"
-        }).show();
-        var $delay = $("#projectName").visible() ? 0 : 750;
-        $projectView.delay($delay).animate({
-            opacity: "0"
-        }, 500, function() {
-            $projects.css("height", "100vh");
-            $topBar.animate({
-                height: "10%"
-            }, 500);
-            $rightBar.animate({
-                width: "10%"
-            }, 500);
-            $bottomBar.animate({
-                height: "10%"
-            }, 500);
-            $leftBar.animate({
-                width: "10%"
-            }, 500);
-            $projectEntrance.css("border", "none").animate({
-                width: "100%",
-                height: "100%",
-                top: "0px",
-                left: "0px"
-            }, 500, function() {
-                $leftBar.animate({
-                    bottom: "-100%"
-                }, 250);
-                $bottomBar.delay(150).animate({
-                    right: "-100%"
-                }, 250);
-                $rightBar.delay(300).animate({
-                    top: "-100%"
-                }, 250);
-                $topBar.delay(450).animate({
-                    left: "-100%"
-                }, 250, function() {
-                    $(".navbar").removeClass("inProject");
-                    $(".navbar").addClass("inPage");
-                    $carousel.show();
-                    $carousel.carousel("cycle");
-                    $carousel.carousel("next");
-                    $projectEntrance.hide();
-                });
-            });
+        var $delay = $("#projectName").visible() ? 0 : .75;
+        var projectExitTimeline = new TimelineLite({
+            delay: $delay
+        });
+        projectExitTimeline.to($projectEntrance, 0, {
+            width: $projectView.find("#projectImage").outerWidth(),
+            top: $projectView.find("#projectImage").offset().top,
+            left: $projectView.find("#projectImage").offset().left,
+            display: "block"
+        }).to($projectView, .5, {
+            opacity: 0
+        }).to($projects, 0, {
+            height: "100%"
+        }).to($topBar, .5, {
+            height: "80px"
+        }).to($rightBar, .5, {
+            width: "10%"
+        }, "-=0.5").to($bottomBar, .5, {
+            height: "80px"
+        }, "-=0.5").to($leftBar, .5, {
+            width: "10%"
+        }, "-=0.5").to($projectEntrance, 0, {
+            border: "0px"
+        }, "-=0.5").to($projectEntrance, .5, {
+            width: "100%",
+            height: "100%",
+            top: 0,
+            left: 0
+        }, "-=0.5").to($leftBar, .35, {
+            bottom: "-100%"
+        }).to($bottomBar, .35, {
+            right: "-100%"
+        }, "-=0.15").to($rightBar, .35, {
+            top: "-100%"
+        }, "-=0.15").to($topBar, .35, {
+            left: "-100%",
+            onComplete: function() {
+                $(".navbar").removeClass("inProject");
+                $(".navbar").addClass("inPage");
+                $carousel.carousel("cycle");
+                $carousel.carousel("next");
+            }
+        }, "-=0.15").to($carousel, 0, {
+            display: "block"
+        }, "-=0.25").to($projectEntrance, 0, {
+            display: "none"
         });
     });
 });
