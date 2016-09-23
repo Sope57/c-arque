@@ -27,13 +27,14 @@
 @media(max-width: 1024px)
 	#proyectos
 		#projectSlider
+			.title
+				h1
+					font-size: 3vw!important
+				p
+					font-size: 2vw!important   
 			.fancyButton
 				p
 					font-size: 2.5vw!important
-			.projectTitle
-				font-size: 6vw!important
-			.title
-				font-size: 12px!important  
 					
 @media(max-width: 992px)
 	#proyectos
@@ -44,17 +45,90 @@
 
 @media(max-width: 768px)
 	#proyectos
+		height: auto!important
+		padding-top: 0!important
 		#projectSlider
-			.fancyButton
-				p
-					font-size: 2.5vw!important
-			.title
-				font-size: 6px!important  
-		#projectImages
-			height: 200px!important
-			.image
-				height: 50%!important
-					
+			.scrollIndicator
+				display: block
+			.projectIndicator
+				display: block
+			.sliders
+				// height: 700vh
+				height: 4480px 
+				-webkit-perspective: none 
+				-moz-perspective: none 
+				perspective: none
+				#slider1
+					z-index: 1
+				#slider2
+					z-index: 2
+					margin-top: 100vh
+					margin-top: 640px
+				#slider3
+					z-index: 3
+					margin-top: 100vh
+					margin-top: 1280px
+				#slider4
+					z-index: 4
+					margin-top: 100vh
+					margin-top: 1920px
+				#slider5
+					z-index: 5
+					margin-top: 100vh
+					margin-top: 2560px
+				#slider6
+					z-index: 6
+					margin-top: 100vh
+					margin-top: 3200px
+				#slider7
+					z-index: 7 
+					margin-top: 100vh
+					margin-top: 3840px
+				li
+					position: absolute!important
+					width: 100%!important
+					// height: 100vh!important
+					height: 640px
+					.projectTitle
+						display: block 
+					.close
+						top: 100px!important
+						right: 5vw!important
+					.projectThumbnail
+						// +filter(grayscale(100%) brightness(25%))
+						.fancyButton
+							display: block 
+					&.active
+						margin-top: 0!important
+						// height: 100vh!important
+						// +transition(height 0.5s)
+						.close
+							img
+								width: 10vw!important
+					&.fixed
+						position: fixed!important
+						margin-top: 0!important
+						// .projectThumbnail
+						// 	+filter(grayscale(100%) brightness(25%))
+						// .projectTitle
+						// 	top: 120px!important
+					&:hover
+						border: none!important
+				&.open
+					.active
+						.projectThumbnail
+							+filter(none!important) 
+		#projectView
+			margin-top: 80px 
+			#projectImage
+				height: 320px!important 
+			#projectImages
+				height: 200px!important
+				.image
+					height: 50%!important
+			#moreProjects
+				margin-bottom: 30px
+							
 /********** ART **********/
 @media(max-width: 768px)
 	#arte

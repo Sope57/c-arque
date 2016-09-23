@@ -3,10 +3,10 @@ $(function() {
 	var $introImage = $("#introImage");
 	var $animatedElements = $(".animate");
 
-	$window.on('scroll', function() {
-		var $scrolledY = $(this).scrollTop();
-		TweenLite.to($introImage, 0.5, {backgroundPosition : "0% " + $scrolledY * .05 + "%"});
-	});
+	// $window.on('scroll', function() {
+	// 	var $scrolledY = $(this).scrollTop();
+	// 	TweenLite.to($introImage, 0.5, {backgroundPosition : "0% " + $scrolledY * .05 + "%"});
+	// });
 	$(".navbar-brand").on('click', function() {
 		$("#main").show();
 		var $activeView = $("#main").siblings(".page.active");
@@ -32,7 +32,10 @@ $(function() {
 	});
 
 	$(".pageButton").on('click', function(e) {
-		e.preventDefault();
+		// e.preventDefault();
+		if ($window.width() < 768) {
+			$('.navbar-toggle').click();
+		}
 		var $pageId = $(this).attr('data-page');
 		$(this).closest("li").addClass("active");
 		$(this).closest("li").siblings().removeClass("active");
@@ -47,6 +50,7 @@ $(function() {
 		$($pageId).siblings(".active").removeClass("active");
 		switch ($pageId) {
 			case '#proyectos':
+				TweenMax.staggerFrom($("#proyectos .sliders .flipper"), 1.75, {rotationY : 90, opacity : 0, ease : Elastic.easeOut.config(1, 0.5), delay : 0.5}, 0.15)
 				break;
 			case '#arte':
 				// if ($("#arte").hasClass("active") === false) {
@@ -94,15 +98,18 @@ $(function() {
     });
 
 
-    $window.on('scroll', function() {
-		var $windowPosition = $(this).scrollTop() +  $(this).height();
-		$animatedElements.each(function() {
-    		if ($windowPosition > $(this).offset().top && $(this).hasClass("animate")) {
-    			$(this).removeClass("animate");
-				TweenLite.from($(this), 1, jQuery.parseJSON($(this).attr("data-animation")));
-    		}
-		})
-	});
+ //    $window.on('scroll', function() {
+	// 	var $windowPosition = $(this).scrollTop() +  $(this).height();
+	// 	$animatedElements.each(function() {
+ //    		if ($windowPosition > $(this).offset().top && $(this).hasClass("animate")) {
+ //    			$(this).removeClass("animate");
+	// 			TweenLite.from($(this), 1, jQuery.parseJSON($(this).attr("data-animation")));
+ //    		}
+	// 	})
+	// });
+
+
+	// $('#main .img-responsive').parallax({imageSrc: 'build/images/portfolioImage.jpg'});
 
 
 });

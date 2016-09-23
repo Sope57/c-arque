@@ -14,12 +14,10 @@ $(function() {
     var $window = $(window);
     var $introImage = $("#introImage");
     var $animatedElements = $(".animate");
-    $window.on("scroll", function() {
-        var $scrolledY = $(this).scrollTop();
-        TweenLite.to($introImage, .5, {
-            backgroundPosition: "0% " + $scrolledY * .05 + "%"
-        });
-    });
+    // $window.on('scroll', function() {
+    // 	var $scrolledY = $(this).scrollTop();
+    // 	TweenLite.to($introImage, 0.5, {backgroundPosition : "0% " + $scrolledY * .05 + "%"});
+    // });
     $(".navbar-brand").on("click", function() {
         $("#main").show();
         var $activeView = $("#main").siblings(".page.active");
@@ -47,7 +45,10 @@ $(function() {
         $(".pageButton").parent(".active").removeClass("active");
     });
     $(".pageButton").on("click", function(e) {
-        e.preventDefault();
+        // e.preventDefault();
+        if ($window.width() < 768) {
+            $(".navbar-toggle").click();
+        }
         var $pageId = $(this).attr("data-page");
         $(this).closest("li").addClass("active");
         $(this).closest("li").siblings().removeClass("active");
@@ -62,6 +63,12 @@ $(function() {
         $($pageId).siblings(".active").removeClass("active");
         switch ($pageId) {
           case "#proyectos":
+            TweenMax.staggerFrom($("#proyectos .sliders .flipper"), 1.75, {
+                rotationY: 90,
+                opacity: 0,
+                ease: Elastic.easeOut.config(1, .5),
+                delay: .5
+            }, .15);
             break;
 
           case "#arte":
@@ -124,15 +131,6 @@ $(function() {
             }, 750);
         }
     });
-    $window.on("scroll", function() {
-        var $windowPosition = $(this).scrollTop() + $(this).height();
-        $animatedElements.each(function() {
-            if ($windowPosition > $(this).offset().top && $(this).hasClass("animate")) {
-                $(this).removeClass("animate");
-                TweenLite.from($(this), 1, jQuery.parseJSON($(this).attr("data-animation")));
-            }
-        });
-    });
 });
 
 var $body = $("body");
@@ -157,6 +155,27 @@ var $left = $preload.find(".left");
 
 var $tag = $(".navbar-brand img");
 
+// $(function() {
+//     var preloadTimeline = new TimelineLite({delay : 0.25});
+//     preloadTimeline.to($top, 0, {left : ($width/2)+77})
+//         .to($right, 0, {top : ($height/2)+77})
+//         .to($bottom, 0, {left : ($width/2)-100})
+//         .to($left, 0, {top : ($height/2)-100})
+//         .to($top, 1, {top : ($height/2)-100, height : 200, ease: Expo.easeOut})
+//         .to($right, 1, {right : ($width/2)-100, width : 200, ease: Expo.easeOut}, "-=0.75")
+//         .to($bottom, 1, {bottom : ($height/2)-101, height : 200, ease: Expo.easeOut}, "-=0.75")
+//         .to($left, 1, {left : ($width/2)-100, width : 200, ease: Expo.easeOut}, "-=0.75")
+//         .to($preloadImg, 1.25, {opacity : 1, ease: Power2.easeOut})
+//         .to($top, 0, {display : "none"})
+//         .to($right, 0, {display : "none"})
+//         .to($bottom, 0, {display : "none"})
+//         .to($left, 0, {display : "none"})
+//         .to($preloadImg, 1.5, {width : 60, height : 60, ease: Power3.easeInOut})
+//         .to($preload, 1.5, {width : 90, height : 80, ease: Power3.easeInOut}, "-=1")
+//         .to($app, 1, {display : "block", opacity: 1})
+//         .to($body, 0, {backgroundColor : "#FFF"})
+//         .to($preload, 0, {display : "none"});
+// });
 $(function() {
     var preloadTimeline = new TimelineLite({
         delay: .25
@@ -169,24 +188,25 @@ $(function() {
         left: $width / 2 - 100
     }).to($left, 0, {
         top: $height / 2 - 100
-    }).to($top, .75, {
+    }).to($top, 1, {
         top: $height / 2 - 100,
         height: 200,
-        ease: Power3.easeOut
-    }).to($right, .75, {
+        ease: Expo.easeOut
+    }).to($right, 1, {
         right: $width / 2 - 100,
         width: 200,
-        ease: Power3.easeOut
-    }, "-=0.5").to($bottom, .75, {
+        ease: Expo.easeOut
+    }, "-=0.75").to($bottom, 1, {
         bottom: $height / 2 - 101,
         height: 200,
-        ease: Power3.easeOut
-    }, "-=0.5").to($left, .75, {
+        ease: Expo.easeOut
+    }, "-=0.75").to($left, 1, {
         left: $width / 2 - 100,
         width: 200,
-        ease: Power3.easeOut
-    }, "-=0.5").to($preloadImg, 1.5, {
-        opacity: 1
+        ease: Expo.easeOut
+    }, "-=0.75").to($preloadImg, 1.25, {
+        opacity: 1,
+        ease: Power2.easeOut
     }).to($top, 0, {
         display: "none"
     }).to($right, 0, {
@@ -195,77 +215,308 @@ $(function() {
         display: "none"
     }).to($left, 0, {
         display: "none"
-    }).to($preloadImg, 1, {
-        width: 60,
-        height: 60
-    }).to($preload, 1, {
-        width: 90,
-        height: 80
-    }, "-=1").to($app, 1, {
-        display: "block",
-        opacity: 1
-    }).to($body, 0, {
-        backgroundColor: "#FFF"
-    }).to($preload, 0, {
-        display: "none"
     });
 });
 
 $(function() {
+    var $window = $(window);
     var $projects = $("#proyectos");
-    var $carousel = $("#projectSlider");
-    var $indicators = $(".carousel-indicators");
-    var $sliders = $(".carousel-indicators li");
-    var $slides = $(".carousel-inner .item");
-    var $snippets = $("#projectSnippets");
-    var $slideInterval = 1e4;
-    var $projectEntrance = $("#projectEntrance");
+    var $loading = $projects.find(".loading");
+    var $scrollIndicator = $projects.find(".scrollIndicator");
+    var $scrollIndicatorUp = $scrollIndicator.find(".up");
+    var $scrollIndicatorDown = $scrollIndicator.find(".down");
+    var $projectIndicator = $projects.find(".projectIndicator");
+    var $projectMarginer = $projectIndicator.find(".marginer");
+    var $projectSlider = $projects.find("#projectSlider");
+    var $sliders = $projectSlider.find(".sliders");
+    var $slides = $sliders.find(".slide");
+    var $projectClosers = $sliders.find(".close");
+    var $projectThumbnails = $sliders.find(".projectThumbnail");
+    var $fancyButtons = $sliders.find(".title .fancyButton");
+    var $projectEntrance = $projects.find("#projectEntrance");
+    var $entranceImage = $projectEntrance.find(".entranceImage");
     var $topBar = $projectEntrance.find(".top");
     var $rightBar = $projectEntrance.find(".right");
     var $bottomBar = $projectEntrance.find(".bottom");
     var $leftBar = $projectEntrance.find(".left");
     var $projectView = $("#projectView");
     var $backButton = $("#moreProjects");
-    $carousel.carousel({
-        interval: $slideInterval,
-        pause: null
-    }).find(".carousel-indicators .active .percentage").animate({
-        height: "100%"
-    }, $slideInterval, "linear");
-    $indicators.hover(function() {
-        $(this).addClass("hovered");
-        $(this).find("li").hover(function() {
-            $($(this).attr("data-snippet")).addClass("active");
-            $($(this).attr("data-snippet")).siblings().removeClass("active");
-        });
-    }, function() {
-        $(this).removeClass("hovered");
-        $($(this).find("li.active").attr("data-snippet")).addClass("active");
-        $($(this).find("li.active").attr("data-snippet")).siblings().removeClass("active");
+    var windowHeight = 640;
+    var thumbnails = [];
+    var thumbnailOffset = 640 * -1;
+    $projectThumbnails.each(function(index) {
+        var thumbnailImage = {};
+        thumbnailOffset = thumbnailOffset + windowHeight;
+        thumbnailImage.offset = thumbnailOffset;
+        thumbnailImage.object = $(this);
+        thumbnails.push(thumbnailImage);
     });
-    $carousel.bind("slide.bs.carousel", function(e) {
-        var $activeSlider = $("#" + $(e.relatedTarget).attr("data-sliderId"));
-        var $activeSnippet = $("#" + $(e.relatedTarget).attr("data-snippetId"));
-        $activeSlider.find(".percentage").css("height", "0px").animate({
-            height: "100%"
-        }, $slideInterval, "linear");
-        $activeSlider.prevAll().find(".percentage").stop().css("height", "100%");
-        $activeSlider.nextAll().find(".percentage").stop().css("height", "0%");
-        if ($indicators.hasClass("hovered") == false) {
-            $activeSnippet.addClass("active");
-            $activeSnippet.siblings().removeClass("active");
+    // 	function updateThumbnailBackgrounds() {
+    // 		var scrolledY = $window.scrollTop();
+    // 	var thumbnailPosition = scrolledY - thumbnails[$sliders.find(".fixed").last().next().index()].offset;
+    // 	if (thumbnailPosition >= 0) {
+    // 		thumbnails[$sliders.find(".fixed").last().next().index()].object.closest("li").addClass("fixed");
+    // 	} else if (thumbnailPosition < -640) {
+    // 		thumbnails[$sliders.find(".fixed").last().index()].object.closest("li").removeClass("fixed");
+    // 	}
+    // 	var grayscaleValue = 100 - (scrolledY - thumbnails[$sliders.find(".fixed").last().index()].offset) / 6.4;
+    // 	var brightnessValue = 100 - (grayscaleValue * 0.75);
+    // 	$sliders.find(".fixed").last().next().find(".projectThumbnail")
+    //  			.css('webkitFilter', "grayscale(" + grayscaleValue + "%) brightness(" + brightnessValue + "%)")
+    //  			.css('mozFilter', "grayscale(" + grayscaleValue + "%) brightness(" + brightnessValue + "%)")
+    //  			.css('msFilter', "grayscale(" + grayscaleValue + "%) brightness(" + brightnessValue + "%)")
+    //  			.css('oFilter', "grayscale(" + grayscaleValue + "%) brightness(" + brightnessValue + "%)")
+    //  			.css('filter', "grayscale(" + grayscaleValue + "%) brightness(" + brightnessValue + "%)");
+    // 	var topIndicatorOpacity = scrolledY / windowHeight;
+    // 	var bottomIndicatorOpacity = 6 - topIndicatorOpacity;
+    // 	$scrollIndicatorUp.css("opacity", topIndicatorOpacity);
+    // 	$scrollIndicatorDown.css("opacity", bottomIndicatorOpacity);
+    // 	var projectMargin = (scrolledY / 31.2) * -1;
+    // 	$projectMarginer.css("margin-left", projectMargin);
+    // 	}
+    // $window.on('scroll', function() {
+    // 	if($window.width() < 768){
+    // 		window.requestAnimationFrame(updateThumbnailBackgrounds);
+    // 	}
+    // });
+    var latestKnownScrollY = 0;
+    var ticking = false;
+    function onScroll() {
+        latestKnownScrollY = window.scrollY;
+        requestTick();
+    }
+    function requestTick() {
+        if (!ticking) {
+            window.requestAnimationFrame(update);
+        }
+        ticking = true;
+    }
+    function update() {
+        ticking = false;
+        var scrolledY = latestKnownScrollY;
+        var thumbnailPosition = scrolledY - thumbnails[$sliders.find(".fixed").last().next().index()].offset;
+        if (thumbnailPosition >= 0) {
+            thumbnails[$sliders.find(".fixed").last().next().index()].object.closest("li").addClass("fixed");
+        } else if (thumbnailPosition < -640) {
+            thumbnails[$sliders.find(".fixed").last().index()].object.closest("li").removeClass("fixed");
+        }
+        var grayscaleValue = (scrolledY - thumbnails[$sliders.find(".fixed").last().index()].offset) / 6.4;
+        var brightnessValue = 100 - grayscaleValue * .75;
+        $sliders.find(".fixed").last().find(".projectThumbnail").css("webkitFilter", "grayscale(" + grayscaleValue + "%) brightness(" + brightnessValue + "%)").css("mozFilter", "grayscale(" + grayscaleValue + "%) brightness(" + brightnessValue + "%)").css("msFilter", "grayscale(" + grayscaleValue + "%) brightness(" + brightnessValue + "%)").css("oFilter", "grayscale(" + grayscaleValue + "%) brightness(" + brightnessValue + "%)").css("filter", "grayscale(" + grayscaleValue + "%) brightness(" + brightnessValue + "%)");
+        var topIndicatorOpacity = scrolledY / windowHeight;
+        var bottomIndicatorOpacity = 6 - topIndicatorOpacity;
+        $scrollIndicatorUp.css("opacity", topIndicatorOpacity);
+        $scrollIndicatorDown.css("opacity", bottomIndicatorOpacity);
+        var projectMargin = scrolledY / 31.2 * -1;
+        $projectMarginer.css("margin-left", projectMargin);
+    }
+    window.addEventListener("scroll", onScroll, false);
+    $window.on("resize", function() {
+        if ($window.width() >= 768) {
+            $sliders.css("height", "100%");
+            $slides.css("height", "100%");
+            if ($sliders.find(".active")) {
+                $sliders.find(".active").css("width", "55%");
+                $sliders.find(".active").siblings().css({
+                    width: "7.5%",
+                    display: "inline-block"
+                });
+            }
+        } else {
+            if ($sliders.is(".open")) {
+                $sliders.css("height", "100vh");
+            } else {
+                $sliders.css("height", windowHeight * 7 + "px");
+            }
+            $slides.css("height", windowHeight + "px");
+            $projectThumbnails.css("background-position", "50% 50%");
+            if ($sliders.find(".active")) {
+                $sliders.find(".active").siblings().css({
+                    display: "none"
+                });
+            }
         }
     });
-    $slides.on("click", function() {
-        $(".navbar").removeClass("inPage");
-        $(".navbar").addClass("inProject");
-        $projectEntrance.css("background-image", "url(build/images/" + $(this).attr("data-imageId") + ".jpg)");
-        $carousel.carousel("pause");
+    $sliders.on("mousemove", function(e) {
+        if ($window.width() >= 768 && !$(this).hasClass("open")) {
+            $slides.each(function(index) {
+                var $distancePercentage = (e.pageX - ($(this).offset().left + $(this).outerWidth() / 2)) * 100 / $window.width();
+                var $animationSpeed = Math.abs($distancePercentage / 40) + .75;
+                var $backgroundImageOffset = 50 + $distancePercentage / 4;
+                TweenLite.to($(this).find(".projectThumbnail"), $animationSpeed, {
+                    backgroundPosition: $backgroundImageOffset + "% 50%",
+                    ease: Power1.easeOut
+                });
+            });
+        }
+    });
+    $projectThumbnails.on("click", function() {
+        if (!$(this).closest(".slide").hasClass("active")) {
+            $sliders.addClass("open");
+            var $openSlider = $(this).closest(".slide");
+            var $delay = 0;
+            if ($window.width() < 768) {
+                $delay = .5;
+                $loading.css({
+                    display: "block",
+                    opacity: 1
+                });
+                TweenLite.to($("html, body"), .5, {
+                    scrollTop: thumbnails[$openSlider.index()].offset,
+                    onComplete: function() {
+                        TweenLite.to($scrollIndicator, .75, {
+                            opacity: 0
+                        });
+                        TweenLite.to($projectIndicator, .75, {
+                            opacity: 0
+                        });
+                        TweenLite.to($openSlider.find(".projectTitle"), .75, {
+                            opacity: 0
+                        });
+                        TweenLite.to($openSlider.find(".projectThumbnail .fancyButton"), .75, {
+                            opacity: 0
+                        });
+                        TweenLite.to($openSlider, 0, {
+                            zIndex: 9
+                        });
+                        TweenLite.to($openSlider, .75, {
+                            height: "100vh",
+                            onComplete: function() {
+                                TweenLite.to($loading, .5, {
+                                    opacity: 0,
+                                    onComplete: function() {
+                                        $loading.css("display", "none");
+                                    }
+                                });
+                                $openSlider.addClass("active").siblings().removeClass("active");
+                                $openSlider.siblings().css("display", "none");
+                                $sliders.css("height", "100vh");
+                            }
+                        });
+                    }
+                });
+            } else {
+                $openSlider.addClass("active").siblings().removeClass("active");
+                TweenLite.to($openSlider, .75, {
+                    width: "55%",
+                    ease: Power2.easeOut,
+                    delay: $delay
+                });
+                TweenLite.to($openSlider.siblings(), .75, {
+                    width: "7.5%",
+                    ease: Power2.easeOut,
+                    delay: $delay
+                });
+                TweenLite.to($openSlider.siblings().find(".projectThumbnail"), .75, {
+                    height: "100%",
+                    ease: Power2.easeOut,
+                    delay: $delay
+                });
+                TweenLite.to($openSlider.siblings().find(".title"), .75, {
+                    height: "0%",
+                    ease: Power2.easeOut,
+                    delay: $delay
+                });
+                TweenLite.to($openSlider.siblings().find(".title .fancyButton"), .75, {
+                    opacity: 0,
+                    bottom: "0",
+                    ease: Power2.easeOut,
+                    delay: $delay
+                });
+            }
+            TweenLite.to($openSlider.find(".projectThumbnail"), .75, {
+                height: "50%",
+                ease: Power2.easeOut,
+                delay: $delay
+            });
+            TweenLite.to($openSlider.find(".title"), .75, {
+                height: "50%",
+                ease: Power2.easeOut,
+                delay: $delay
+            });
+            TweenLite.to($openSlider.find(".title .fancyButton"), .75, {
+                opacity: 1,
+                bottom: "10%",
+                ease: Power2.easeOut,
+                delay: $delay + .75
+            });
+        }
+    });
+    $projectClosers.on("click", function() {
+        $sliders.removeClass("open");
+        var $openSlider = $(this).closest(".active");
+        if ($window.width() < 768) {
+            $openSlider.siblings().css("display", "block");
+            TweenLite.to($sliders, 0, {
+                height: windowHeight * 7
+            });
+            TweenLite.to($("html, body"), 0, {
+                scrollTop: thumbnails[$openSlider.index()].offset
+            });
+            TweenLite.to($scrollIndicator, .75, {
+                opacity: 1
+            });
+            TweenLite.to($projectIndicator, .75, {
+                opacity: 1
+            });
+            TweenLite.to($openSlider.find(".projectTitle"), .75, {
+                opacity: 1
+            });
+            TweenLite.to($openSlider.find(".projectThumbnail .fancyButton"), .75, {
+                opacity: 1
+            });
+            TweenLite.to($openSlider, .75, {
+                height: windowHeight,
+                onComplete: function() {
+                    TweenLite.to($openSlider, 0, {
+                        zIndex: $openSlider.index() + 1
+                    });
+                    $openSlider.removeClass("active");
+                }
+            });
+        } else {
+            TweenLite.to($sliders.find("li"), .75, {
+                width: 100 / 7 + "%",
+                ease: Power2.easeOut
+            });
+            $openSlider.removeClass("active");
+        }
+        TweenLite.to($openSlider.find(".projectThumbnail"), .75, {
+            height: "100%",
+            backgroundPosition: "50% 50%",
+            ease: Power2.easeOut
+        });
+        TweenLite.to($openSlider.find(".title"), .75, {
+            height: "0%",
+            ease: Power2.easeOut
+        });
+        TweenLite.to($openSlider.find(".title .fancyButton"), .25, {
+            opacity: 0,
+            bottom: "0"
+        });
+    });
+    $fancyButtons.on("click", function() {
+        var $projectViewHeight = $window.width() < 768 ? "320px" : "50vh";
+        $entranceImage.css("background-image", "url(build/images/" + $(this).attr("data-imageId") + ".jpg)");
+        var $projectImage = $(this).parent().siblings(".projectThumbnail");
         var projectEntranceTimeline = new TimelineLite();
         projectEntranceTimeline.to($projectEntrance, 0, {
             display: "block"
-        }).to($carousel, 0, {
-            display: "none"
+        }).to($entranceImage, 0, {
+            width: $projectImage.outerWidth(),
+            height: $projectImage.outerHeight(),
+            top: $projectImage.offset().top,
+            left: $projectImage.offset().left
+        }).to($entranceImage, .5, {
+            width: "100%",
+            height: "100%",
+            top: 0,
+            left: 0
+        }).to($projectSlider, 0, {
+            display: "none",
+            opacity: 0
+        }).to($projectView, 0, {
+            display: "block"
         }).to($topBar, .35, {
             left: 0
         }).to($rightBar, .35, {
@@ -283,16 +534,19 @@ $(function() {
         }, "-=0.5").to($leftBar, .5, {
             width: 0
         }, "-=0.5").to($projectEntrance, 0, {
-            border: "5px solid #171717"
-        }, "-=0.5").to($projectEntrance, .5, {
-            width: $projectView.find("#projectImage").outerWidth(),
-            height: "50vh",
-            top: $projectView.find("#projectImage").offset().top,
-            left: $projectView.find("#projectImage").offset().left
-        }, "-=0.5").to($projects, 0, {
-            height: "auto"
-        }).to($projectView, .75, {
+            border: "5px solid #171717",
+            onComplete: function() {
+                TweenLite.to($projectEntrance, .5, {
+                    width: $projectView.find("#projectImage").outerWidth(),
+                    height: $projectViewHeight,
+                    top: $projectView.find("#projectImage").offset().top,
+                    left: $projectView.find("#projectImage").offset().left
+                });
+            }
+        }, "-=0.5").to($projectView, .75, {
             opacity: 1
+        }).to($projects, 0, {
+            height: "auto"
         }).to($projectEntrance, 0, {
             display: "none"
         });
@@ -321,24 +575,30 @@ $(function() {
             display: "block"
         }).to($projectView, .5, {
             opacity: 0
+        }).to($projectView, 0, {
+            display: "none"
+        }).to($projectSlider, 0, {
+            display: "block"
         }).to($projects, 0, {
             height: "100%"
         }).to($topBar, .5, {
-            height: "80px"
+            height: "20%"
         }).to($rightBar, .5, {
             width: "10%"
         }, "-=0.5").to($bottomBar, .5, {
-            height: "80px"
+            height: "10%"
         }, "-=0.5").to($leftBar, .5, {
             width: "10%"
         }, "-=0.5").to($projectEntrance, 0, {
             border: "0px"
         }, "-=0.5").to($projectEntrance, .5, {
             width: "100%",
-            height: "100%",
+            height: "100vh",
             top: 0,
             left: 0
-        }, "-=0.5").to($leftBar, .35, {
+        }, "-=0.5").to($projectSlider, 0, {
+            opacity: 1
+        }).to($leftBar, .35, {
             bottom: "-100%"
         }).to($bottomBar, .35, {
             right: "-100%"
@@ -347,15 +607,18 @@ $(function() {
         }, "-=0.15").to($topBar, .35, {
             left: "-100%",
             onComplete: function() {
-                $(".navbar").removeClass("inProject");
-                $(".navbar").addClass("inPage");
-                $carousel.carousel("cycle");
-                $carousel.carousel("next");
+                TweenLite.to($entranceImage, .5, {
+                    width: $sliders.find(".active .projectThumbnail").outerWidth(),
+                    height: $sliders.find(".active .projectThumbnail").outerHeight(),
+                    top: $sliders.find(".active .projectThumbnail").offset().top,
+                    left: $sliders.find(".active .projectThumbnail").offset().left,
+                    onComplete: function() {
+                        TweenLite.to($projectEntrance, 0, {
+                            display: "none"
+                        });
+                    }
+                });
             }
-        }, "-=0.15").to($carousel, 0, {
-            display: "block"
-        }, "-=0.25").to($projectEntrance, 0, {
-            display: "none"
-        });
+        }, "-=0.15");
     });
 });
